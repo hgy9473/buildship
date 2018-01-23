@@ -3,6 +3,7 @@ apply plugin: 'groovy'
 
 dependencies {
     compile project(':org.eclipse.buildship.stsmigration')
+    bundled 'org.objenesis:objenesis:2.2'
 }
 
 eclipseTest {
