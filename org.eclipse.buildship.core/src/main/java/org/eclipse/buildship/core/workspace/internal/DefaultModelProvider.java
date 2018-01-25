@@ -29,12 +29,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 
-import com.gradleware.tooling.toolingmodel.OmniBuildEnvironment;
 import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
 import com.gradleware.tooling.toolingmodel.OmniGradleBuild;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
 import com.gradleware.tooling.toolingmodel.repository.TransientRequestAttributes;
-import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniBuildEnvironment;
 import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniEclipseProject;
 import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniGradleBuild;
 
@@ -80,12 +78,6 @@ final class DefaultModelProvider implements ModelProvider {
             ModelBuilder<T> builder = ConnectionAwareLauncherProxy.newModelBuilder(model, this.buildConfiguration.toGradleArguments(), transientAttributes);
             return ImmutableList.of(executeModelBuilder(builder, strategy, model));
         }
-    }
-
-    @Override
-    public OmniBuildEnvironment fetchBuildEnvironment(FetchStrategy strategy, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
-        BuildEnvironment model = fetchModel(BuildEnvironment.class, strategy, tokenSource, monitor);
-        return DefaultOmniBuildEnvironment.from(model);
     }
 
     @Override

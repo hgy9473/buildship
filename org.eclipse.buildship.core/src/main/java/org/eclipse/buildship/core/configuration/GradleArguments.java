@@ -66,7 +66,7 @@ public final class GradleArguments {
             JavaEnvironment javaEnv = buildEnvironment.getJava();
 
             writer.write(String.format("%s: %s%n", CoreMessages.RunConfiguration_Label_WorkingDirectory, this.rootDir));
-            writer.write(String.format("%s: %s%n", CoreMessages.Preference_Label_GradleUserHome, toNonEmpty(this.gradleUserHome != null ? this.gradleUserHome : gradleEnv.getGradleUserHome(), CoreMessages.Value_UseGradleDefault)));
+            writer.write(String.format("%s: %s%n", CoreMessages.Preference_Label_GradleUserHome, toNonEmpty(this.gradleUserHome != null ? this.gradleUserHome : getGradleUserHome(gradleEnv), CoreMessages.Value_UseGradleDefault)));
             writer.write(String.format("%s: %s%n", CoreMessages.RunConfiguration_Label_GradleDistribution, GradleDistributionFormatter.toString(this.gradleDistribution)));
             writer.write(String.format("%s: %s%n", CoreMessages.RunConfiguration_Label_GradleVersion, gradleEnv.getGradleVersion()));
             writer.write(String.format("%s: %s%n", CoreMessages.RunConfiguration_Label_JavaHome, toNonEmpty(this.javaHome != null ? this.javaHome :  javaEnv.getJavaHome(), CoreMessages.Value_UseGradleDefault)));
@@ -76,6 +76,14 @@ public final class GradleArguments {
             writer.write(String.format("%s: %s%n", CoreMessages.RunConfiguration_Label_OfflineModeEnabled, this.offlineMode));
         } catch (IOException e) {
             CorePlugin.logger().warn("Cannot write Gradle arguments", e);
+        }
+    }
+
+    private static File getGradleUserHome(GradleEnvironment gradleEnvironment) {
+        try {
+            return gradleEnvironment.getGradleUserHome();
+        } catch (Exception ignore) {
+            return null;
         }
     }
 

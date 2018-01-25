@@ -15,6 +15,8 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.gradle.tooling.CancellationTokenSource;
+import org.gradle.tooling.model.build.BuildEnvironment;
+import org.gradle.tooling.model.build.GradleEnvironment;
 import org.gradle.util.GradleVersion;
 
 import com.google.common.base.Function;
@@ -22,7 +24,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
-import com.gradleware.tooling.toolingmodel.OmniBuildEnvironment;
 import com.gradleware.tooling.toolingmodel.OmniGradleBuild;
 import com.gradleware.tooling.toolingmodel.OmniGradleProjectStructure;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
@@ -312,17 +313,15 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
         }
     }
 
-    private void updateSummary(final OmniBuildEnvironment buildEnvironment) {
+    private void updateSummary(final BuildEnvironment buildEnvironment) {
         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
             @Override
             public void run() {
                 if (!getControl().isDisposed()) {
                     // update Gradle user home
-                    if (buildEnvironment.getGradle().getGradleUserHome().isPresent()) {
-                        String gradleUserHome = buildEnvironment.getGradle().getGradleUserHome().get().getAbsolutePath();
-                        ProjectPreviewWizardPage.this.gradleUserHomeLabel.setText(gradleUserHome);
-                    }
+                    String gradleUserHome = getGradleUserHomePath(buildEnvironment);
+                    ProjectPreviewWizardPage.this.gradleUserHomeLabel.setText(gradleUserHome);
 
                     // update Gradle version
                     String gradleVersion = buildEnvironment.getGradle().getGradleVersion();
@@ -332,6 +331,19 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
                     // update Java home
                     String javaHome = buildEnvironment.getJava().getJavaHome().getAbsolutePath();
                     ProjectPreviewWizardPage.this.javaHomeLabel.setText(javaHome);
+                }
+            }
+
+            private String getGradleUserHomePath(BuildEnvironment buildEnvironment) {
+                File gradleUserHome = getGradleUserHome(buildEnvironment.getGradle());
+                return gradleUserHome == null ? "" : gradleUserHome.getAbsolutePath();
+            }
+
+            private File getGradleUserHome(GradleEnvironment gradleEnvironment) {
+                try {
+                    return gradleEnvironment.getGradleUserHome();
+                } catch (Exception ignore) {
+                    return null;
                 }
             }
         });
@@ -408,9 +420,9 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
         super.dispose();
     }
 
-    private static OmniBuildEnvironment fetchBuildEnvironment(BuildConfiguration buildConfig, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
+    private static BuildEnvironment fetchBuildEnvironment(BuildConfiguration buildConfig, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
         ModelProvider modelProvider = CorePlugin.gradleWorkspaceManager().getGradleBuild(buildConfig).getModelProvider();
-        return modelProvider.fetchBuildEnvironment(FetchStrategy.FORCE_RELOAD, tokenSource, monitor);
+        return modelProvider.fetchModel(BuildEnvironment.class, FetchStrategy.FORCE_RELOAD, tokenSource, monitor);
     }
 
     private static OmniGradleBuild fetchGradleBuildStructure(BuildConfiguration buildConfig, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
@@ -435,7 +447,7 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
             SubMonitor progress = SubMonitor.convert(monitor);
             progress.setWorkRemaining(2);
 
-            OmniBuildEnvironment buildEnvironment = fetchBuildEnvironment(this.buildConfig, tokenSource, progress.newChild(1));
+            BuildEnvironment buildEnvironment = fetchBuildEnvironment(this.buildConfig, tokenSource, progress.newChild(1));
             OmniGradleBuild gradleBuild = fetchGradleBuildStructure(this.buildConfig, tokenSource, progress.newChild(1));
 
             updateSummary(buildEnvironment);
