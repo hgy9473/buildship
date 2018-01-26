@@ -14,7 +14,6 @@ import java.util.Set;
 import org.gradle.tooling.CancellationTokenSource;
 
 import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
-import com.gradleware.tooling.toolingmodel.OmniGradleBuild;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -47,16 +46,6 @@ public interface ModelProvider {
      * @return the returned models
      */
     <T> Collection<T> fetchModels(Class<T> model, FetchStrategy strategy, CancellationTokenSource tokenSource, IProgressMonitor monitor);
-
-    /**
-     * Synchronously queries The {@link OmniGradleBuild} model from this build.
-     *
-     * @param strategy the fetch strategy
-     * @param tokenSource the cancellation token source
-     * @param monitor the monitor to report the progress on
-     * @return the returned model
-     */
-    OmniGradleBuild fetchGradleBuild(FetchStrategy strategy, CancellationTokenSource tokenSource, IProgressMonitor monitor);
 
     /**
      * Synchronously queries The {@link OmniEclipseProject} models from this build.

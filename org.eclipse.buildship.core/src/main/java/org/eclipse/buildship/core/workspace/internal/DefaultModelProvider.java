@@ -19,7 +19,6 @@ import org.gradle.tooling.ModelBuilder;
 import org.gradle.tooling.ProgressListener;
 import org.gradle.tooling.model.build.BuildEnvironment;
 import org.gradle.tooling.model.eclipse.EclipseProject;
-import org.gradle.tooling.model.gradle.GradleBuild;
 import org.gradle.util.GradleVersion;
 
 import com.google.common.base.Supplier;
@@ -30,11 +29,9 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 
 import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
-import com.gradleware.tooling.toolingmodel.OmniGradleBuild;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
 import com.gradleware.tooling.toolingmodel.repository.TransientRequestAttributes;
 import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniEclipseProject;
-import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniGradleBuild;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -78,12 +75,6 @@ final class DefaultModelProvider implements ModelProvider {
             ModelBuilder<T> builder = ConnectionAwareLauncherProxy.newModelBuilder(model, this.buildConfiguration.toGradleArguments(), transientAttributes);
             return ImmutableList.of(executeModelBuilder(builder, strategy, model));
         }
-    }
-
-    @Override
-    public OmniGradleBuild fetchGradleBuild(FetchStrategy strategy, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
-        GradleBuild model = fetchModel(GradleBuild.class, strategy, tokenSource, monitor);
-        return DefaultOmniGradleBuild.from(model);
     }
 
     @Override

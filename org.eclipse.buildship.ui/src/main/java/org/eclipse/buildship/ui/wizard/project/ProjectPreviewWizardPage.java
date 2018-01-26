@@ -17,6 +17,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.gradle.tooling.CancellationTokenSource;
 import org.gradle.tooling.model.build.BuildEnvironment;
 import org.gradle.tooling.model.build.GradleEnvironment;
+import org.gradle.tooling.model.gradle.BasicGradleProject;
+import org.gradle.tooling.model.gradle.GradleBuild;
 import org.gradle.util.GradleVersion;
 
 import com.google.common.base.Function;
@@ -24,8 +26,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
-import com.gradleware.tooling.toolingmodel.OmniGradleBuild;
-import com.gradleware.tooling.toolingmodel.OmniGradleProjectStructure;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
 import com.gradleware.tooling.toolingmodel.util.Pair;
 import com.gradleware.tooling.toolingutils.binding.Property;
@@ -349,14 +349,14 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
         });
     }
 
-    private void populateTree(final OmniGradleBuild buildStructure) {
+    private void populateTree(final GradleBuild gradleBuild) {
         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
             @Override
             public void run() {
                 if (!getControl().isDisposed()) {
                     ProjectPreviewWizardPage.this.projectPreviewTree.removeAll();
-                    populateRecursively(buildStructure, ProjectPreviewWizardPage.this.projectPreviewTree);
+                    populateRecursively(gradleBuild, ProjectPreviewWizardPage.this.projectPreviewTree);
                 }
             }
         });
@@ -389,19 +389,19 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
         });
     }
 
-    private void populateRecursively(OmniGradleBuild gradleBuild, Tree parent) {
-        OmniGradleProjectStructure rootProject = gradleBuild.getRootProject();
+    private void populateRecursively(GradleBuild gradleBuild, Tree parent) {
+        BasicGradleProject rootProject = gradleBuild.getRootProject();
         TreeItem rootTreeItem = new TreeItem(ProjectPreviewWizardPage.this.projectPreviewTree, SWT.NONE);
         rootTreeItem.setExpanded(true);
         rootTreeItem.setText(rootProject.getName());
         populateRecursively(rootProject, rootTreeItem);
-        for (OmniGradleBuild includedBuilds : gradleBuild.getIncludedBuilds()) {
+        for (GradleBuild includedBuilds : gradleBuild.getIncludedBuilds()) {
             populateRecursively(includedBuilds, parent);
         }
     }
 
-    private void populateRecursively(OmniGradleProjectStructure gradleProjectStructure, TreeItem parent) {
-        for (OmniGradleProjectStructure childProject : gradleProjectStructure.getChildren()) {
+    private void populateRecursively(BasicGradleProject gradleProject, TreeItem parent) {
+        for (BasicGradleProject childProject : gradleProject.getChildren()) {
             TreeItem treeItem = new TreeItem(parent, SWT.NONE);
             treeItem.setText(childProject.getName());
             populateRecursively(childProject, treeItem);
@@ -425,9 +425,9 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
         return modelProvider.fetchModel(BuildEnvironment.class, FetchStrategy.FORCE_RELOAD, tokenSource, monitor);
     }
 
-    private static OmniGradleBuild fetchGradleBuildStructure(BuildConfiguration buildConfig, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
+    private static GradleBuild fetchGradleBuildStructure(BuildConfiguration buildConfig, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
         ModelProvider modelProvider = CorePlugin.gradleWorkspaceManager().getGradleBuild(buildConfig).getModelProvider();
-        return modelProvider.fetchGradleBuild(FetchStrategy.FORCE_RELOAD, tokenSource, monitor);
+        return modelProvider.fetchModel(GradleBuild.class, FetchStrategy.FORCE_RELOAD, tokenSource, monitor);
     }
 
     /**
@@ -448,7 +448,7 @@ public final class ProjectPreviewWizardPage extends AbstractWizardPage {
             progress.setWorkRemaining(2);
 
             BuildEnvironment buildEnvironment = fetchBuildEnvironment(this.buildConfig, tokenSource, progress.newChild(1));
-            OmniGradleBuild gradleBuild = fetchGradleBuildStructure(this.buildConfig, tokenSource, progress.newChild(1));
+            GradleBuild gradleBuild = fetchGradleBuildStructure(this.buildConfig, tokenSource, progress.newChild(1));
 
             updateSummary(buildEnvironment);
             populateTree(gradleBuild);
