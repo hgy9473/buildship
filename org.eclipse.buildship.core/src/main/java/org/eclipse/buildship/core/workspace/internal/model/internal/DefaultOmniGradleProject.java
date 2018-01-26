@@ -23,7 +23,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 import org.eclipse.buildship.core.workspace.internal.model.OmniBuildInvocations;

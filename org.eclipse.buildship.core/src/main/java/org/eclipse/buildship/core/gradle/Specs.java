@@ -14,7 +14,7 @@ package org.eclipse.buildship.core.gradle;
 import org.gradle.api.specs.Spec;
 
 import com.gradleware.tooling.toolingmodel.OmniGradleProject;
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 
 /**
  * Contains useful {@code Spec} implementations.

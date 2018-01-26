@@ -30,7 +30,7 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.google.common.collect.TreeBasedTable;
 
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 
 import org.eclipse.buildship.core.workspace.internal.model.OmniBuildInvocations;
 import org.eclipse.buildship.core.workspace.internal.model.OmniProjectTask;

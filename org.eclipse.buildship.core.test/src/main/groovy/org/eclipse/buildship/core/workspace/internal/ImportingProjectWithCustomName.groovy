@@ -18,7 +18,7 @@ import org.gradle.tooling.model.gradle.GradleBuild
 import com.google.common.util.concurrent.FutureCallback
 
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy
-import com.gradleware.tooling.toolingmodel.util.Pair
+import org.eclipse.buildship.core.util.gradle.Pair
 
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.runtime.NullProgressMonitor

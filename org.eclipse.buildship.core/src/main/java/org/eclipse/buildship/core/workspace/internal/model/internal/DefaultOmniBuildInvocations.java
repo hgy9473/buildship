@@ -19,7 +19,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 
 import org.eclipse.buildship.core.workspace.internal.model.OmniBuildInvocations;
 import org.eclipse.buildship.core.workspace.internal.model.OmniProjectTask;

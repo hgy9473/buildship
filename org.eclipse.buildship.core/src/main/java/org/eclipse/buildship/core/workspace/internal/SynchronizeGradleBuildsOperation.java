@@ -17,13 +17,12 @@ import org.gradle.tooling.model.eclipse.EclipseProject;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
-import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 
 import org.eclipse.buildship.core.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.workspace.FetchStrategy;
 import org.eclipse.buildship.core.workspace.GradleBuild;
 import org.eclipse.buildship.core.workspace.ModelProvider;
 import org.eclipse.buildship.core.workspace.NewProjectHandler;

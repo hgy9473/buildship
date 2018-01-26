@@ -25,8 +25,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 
-import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
-import com.gradleware.tooling.toolingmodel.repository.TransientRequestAttributes;
+import org.eclipse.buildship.core.util.gradle.TransientRequestAttributes;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -36,6 +35,7 @@ import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.console.ProcessStreams;
 import org.eclipse.buildship.core.util.progress.CancellationForwardingListener;
 import org.eclipse.buildship.core.util.progress.DelegatingProgressListener;
+import org.eclipse.buildship.core.workspace.FetchStrategy;
 import org.eclipse.buildship.core.workspace.ModelProvider;
 
 /**

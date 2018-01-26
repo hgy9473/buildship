@@ -12,8 +12,6 @@ import java.util.Collection;
 
 import org.gradle.tooling.CancellationTokenSource;
 
-import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**

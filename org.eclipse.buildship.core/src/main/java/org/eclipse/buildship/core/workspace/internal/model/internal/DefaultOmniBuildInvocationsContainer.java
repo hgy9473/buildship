@@ -17,7 +17,7 @@ import org.gradle.tooling.model.gradle.BuildInvocations;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSortedMap;
 
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 
 import org.eclipse.buildship.core.workspace.internal.model.OmniBuildInvocations;
 import org.eclipse.buildship.core.workspace.internal.model.OmniBuildInvocationsContainer;

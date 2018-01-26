@@ -20,7 +20,7 @@ import java.util.SortedMap;
 
 import com.google.common.base.Optional;
 
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 
 /**
  * Holds the {@link OmniBuildInvocations} for a given set of projects. Each project is identified by its unique full path.

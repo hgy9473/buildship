@@ -16,7 +16,7 @@ import org.gradle.tooling.model.ProjectIdentifier;
 
 import com.google.common.base.Optional;
 
-import com.gradleware.tooling.toolingmodel.Path;
+import org.eclipse.buildship.core.util.gradle.Path;
 import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
