@@ -17,6 +17,7 @@ import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
 /**
  * Supplies some useful {@link Predicate} instances.
  */
+// TODO (donat) we can move this into the OmniEclipseProject class
 public final class Predicates {
 
     private Predicates() {
