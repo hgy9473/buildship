@@ -16,9 +16,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniGradleScript;
 import org.eclipse.buildship.core.util.file.RelativePathUtils;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.OmniGradleScript;
 
 /**
  * Updates the build script location in the persistent model.

@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.SubMonitor;
 
 import org.eclipse.buildship.core.CorePlugin;
 import org.eclipse.buildship.core.UnsupportedConfigurationException;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
 
 /**
  * Updates project names to match the Gradle model. Moves other projects out of the way if necessary.

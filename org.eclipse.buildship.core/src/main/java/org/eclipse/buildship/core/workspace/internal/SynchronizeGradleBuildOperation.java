@@ -39,8 +39,8 @@ import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.configuration.ConfigurationManager;
 import org.eclipse.buildship.core.configuration.GradleProjectNature;
 import org.eclipse.buildship.core.configuration.ProjectConfiguration;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
 import org.eclipse.buildship.core.workspace.NewProjectHandler;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
 
 /**
  * Synchronizes the given Gradle build with the Eclipse workspace. The algorithm is as follows:

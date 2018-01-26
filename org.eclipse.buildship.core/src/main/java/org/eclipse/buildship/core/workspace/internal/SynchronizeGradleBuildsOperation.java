@@ -22,12 +22,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 
 import org.eclipse.buildship.core.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.internal.DefaultOmniEclipseProject;
 import org.eclipse.buildship.core.workspace.FetchStrategy;
 import org.eclipse.buildship.core.workspace.GradleBuild;
 import org.eclipse.buildship.core.workspace.ModelProvider;
 import org.eclipse.buildship.core.workspace.NewProjectHandler;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.internal.DefaultOmniEclipseProject;
 
 /**
  * Synchronizes each of the given Gradle builds with the workspace.

@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseOutputLocation;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseOutputLocation;
 
 /**
  * Updates the output location of the current project.

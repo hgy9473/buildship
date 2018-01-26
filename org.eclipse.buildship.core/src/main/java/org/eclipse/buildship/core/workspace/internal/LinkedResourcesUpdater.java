@@ -32,9 +32,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 
 import org.eclipse.buildship.core.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseLinkedResource;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.util.file.FileUtils;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseLinkedResource;
 
 /**
  * Updates the linked sources of the target project.

@@ -27,9 +27,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import org.eclipse.buildship.core.configuration.GradleProjectBuilder;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseBuildCommand;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.workspace.internal.ManagedModelMergingStrategy.Result;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseBuildCommand;
 
 /**
  * Updates the build commands on the target project.

@@ -16,9 +16,9 @@ import org.eclipse.jdt.core.IAccessRule;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.JavaCore;
 
-import org.eclipse.buildship.core.workspace.internal.model.OmniAccessRule;
-import org.eclipse.buildship.core.workspace.internal.model.OmniClasspathAttribute;
-import org.eclipse.buildship.core.workspace.internal.model.OmniClasspathEntry;
+import org.eclipse.buildship.core.omnimodel.OmniAccessRule;
+import org.eclipse.buildship.core.omnimodel.OmniClasspathAttribute;
+import org.eclipse.buildship.core.omnimodel.OmniClasspathEntry;
 
 /**
  * Contains helper methods for JDT classpath manipulation.

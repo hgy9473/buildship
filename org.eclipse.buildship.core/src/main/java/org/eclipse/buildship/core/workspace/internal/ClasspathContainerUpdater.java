@@ -33,10 +33,10 @@ import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
 
+import org.eclipse.buildship.core.omnimodel.OmniEclipseClasspathContainer;
+import org.eclipse.buildship.core.omnimodel.OmniJavaSourceSettings;
 import org.eclipse.buildship.core.util.classpath.ClasspathUtils;
 import org.eclipse.buildship.core.workspace.GradleClasspathContainer;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseClasspathContainer;
-import org.eclipse.buildship.core.workspace.internal.model.OmniJavaSourceSettings;
 
 /**
  * Updates the classpath containers of the target project.

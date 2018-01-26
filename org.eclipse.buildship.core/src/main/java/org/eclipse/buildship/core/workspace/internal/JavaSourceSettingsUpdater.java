@@ -24,8 +24,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.OmniJavaSourceSettings;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniJavaSourceSettings;
 
 /**
  * Updates the Java source settings on the target project.

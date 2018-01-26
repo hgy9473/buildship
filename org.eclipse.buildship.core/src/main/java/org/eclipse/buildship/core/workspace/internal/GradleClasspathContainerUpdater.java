@@ -35,12 +35,12 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 
 import org.eclipse.buildship.core.CorePlugin;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProjectDependency;
+import org.eclipse.buildship.core.omnimodel.OmniExternalDependency;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.util.classpath.ClasspathUtils;
 import org.eclipse.buildship.core.workspace.GradleClasspathContainer;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProjectDependency;
-import org.eclipse.buildship.core.workspace.internal.model.OmniExternalDependency;
 
 /**
  * Updates the classpath container of the target project.

@@ -29,11 +29,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 
 import org.eclipse.buildship.core.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseLinkedResource;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniGradleProject;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.util.file.RelativePathUtils;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseLinkedResource;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.OmniGradleProject;
 
 /**
  * Updates the derived resource markers on a project. Stores the last state in the preferences, so

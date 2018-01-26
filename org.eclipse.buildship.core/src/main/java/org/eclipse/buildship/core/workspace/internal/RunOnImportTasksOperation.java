@@ -32,10 +32,10 @@ import org.eclipse.buildship.core.CorePlugin;
 import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.configuration.RunConfiguration;
 import org.eclipse.buildship.core.console.ProcessStreams;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProjectNature;
+import org.eclipse.buildship.core.omnimodel.OmniProjectTask;
 import org.eclipse.buildship.core.util.progress.DelegatingProgressListener;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProjectNature;
-import org.eclipse.buildship.core.workspace.internal.model.OmniProjectTask;
 
 /**
  * Runs extra tasks that set up the project so it can be used in Eclipse.

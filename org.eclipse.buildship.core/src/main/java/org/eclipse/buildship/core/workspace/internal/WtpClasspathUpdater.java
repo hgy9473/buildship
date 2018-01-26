@@ -22,10 +22,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 
 import org.eclipse.buildship.core.UnsupportedConfigurationException;
+import org.eclipse.buildship.core.omnimodel.OmniClasspathAttribute;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
+import org.eclipse.buildship.core.omnimodel.OmniExternalDependency;
 import org.eclipse.buildship.core.workspace.GradleClasspathContainer;
-import org.eclipse.buildship.core.workspace.internal.model.OmniClasspathAttribute;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
-import org.eclipse.buildship.core.workspace.internal.model.OmniExternalDependency;
 
 /**
  * Updates the Gradle classpath container to have the correct deployment attribute if any of its

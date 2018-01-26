@@ -34,8 +34,8 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 
-import org.eclipse.buildship.core.workspace.internal.model.OmniClasspathAttribute;
-import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseSourceDirectory;
+import org.eclipse.buildship.core.omnimodel.OmniClasspathAttribute;
+import org.eclipse.buildship.core.omnimodel.OmniEclipseSourceDirectory;
 
 /**
  * Updates the source folders of the target project.
