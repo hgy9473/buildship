@@ -15,11 +15,10 @@ import org.gradle.tooling.model.eclipse.EclipseSourceDirectory;
 
 import com.google.common.base.Optional;
 
-import com.gradleware.tooling.toolingmodel.util.Maybe;
-
 import org.eclipse.buildship.core.omnimodel.OmniAccessRule;
 import org.eclipse.buildship.core.omnimodel.OmniClasspathAttribute;
 import org.eclipse.buildship.core.omnimodel.OmniEclipseSourceDirectory;
+import org.eclipse.buildship.core.util.gradle.Maybe;
 
 /**
  * Default implementation of the {@link OmniEclipseSourceDirectory} interface.

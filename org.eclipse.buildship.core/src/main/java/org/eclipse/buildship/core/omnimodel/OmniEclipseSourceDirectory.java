@@ -8,11 +8,12 @@
 
 package org.eclipse.buildship.core.omnimodel;
 
-import com.google.common.base.Optional;
-import com.gradleware.tooling.toolingmodel.util.Maybe;
-
 import java.io.File;
 import java.util.List;
+
+import com.google.common.base.Optional;
+
+import org.eclipse.buildship.core.util.gradle.Maybe;
 
 /**
  * Describes a source directory in an Eclipse project.

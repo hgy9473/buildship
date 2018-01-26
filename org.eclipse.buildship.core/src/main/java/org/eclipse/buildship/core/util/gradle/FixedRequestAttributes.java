@@ -16,8 +16,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import com.gradleware.tooling.toolingutils.ImmutableCollection;
-
 /**
  * Container to hold those attributes of a {@link com.gradleware.tooling.toolingclient.Request} that must not change between request invocations if the semantics of how the build
  * is executed must not changed.
@@ -82,13 +80,11 @@ public final class FixedRequestAttributes {
         return this.javaHome;
     }
 
-    @ImmutableCollection
     @SuppressWarnings("UnusedDeclaration")
     public List<String> getJvmArguments() {
         return this.jvmArguments;
     }
 
-    @ImmutableCollection
     @SuppressWarnings("UnusedDeclaration")
     public List<String> getArguments() {
         return this.arguments;

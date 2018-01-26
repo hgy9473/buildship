@@ -11,7 +11,6 @@ package org.eclipse.buildship.core.util.gradle;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.gradleware.tooling.toolingclient.Request;
-import com.gradleware.tooling.toolingutils.ImmutableCollection;
 import org.gradle.tooling.CancellationToken;
 import org.gradle.tooling.ProgressListener;
 
@@ -65,13 +64,11 @@ public final class TransientRequestAttributes {
         return this.standardInput;
     }
 
-    @ImmutableCollection
     @SuppressWarnings("UnusedDeclaration")
     public List<ProgressListener> getProgressListeners() {
         return this.progressListeners;
     }
 
-    @ImmutableCollection
     @SuppressWarnings("UnusedDeclaration")
     public List<org.gradle.tooling.events.ProgressListener> getTypedProgressListeners() {
         return this.typedProgressListeners;

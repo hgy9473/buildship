@@ -20,8 +20,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import com.gradleware.tooling.toolingmodel.util.Maybe;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
@@ -36,6 +34,7 @@ import org.eclipse.jdt.core.JavaModelException;
 
 import org.eclipse.buildship.core.omnimodel.OmniClasspathAttribute;
 import org.eclipse.buildship.core.omnimodel.OmniEclipseSourceDirectory;
+import org.eclipse.buildship.core.util.gradle.Maybe;
 
 /**
  * Updates the source folders of the target project.
