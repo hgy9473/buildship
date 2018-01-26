@@ -18,8 +18,6 @@ import org.gradle.tooling.ProgressListener;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import com.gradleware.tooling.toolingclient.Request;
-
 /**
  * Container to hold those attributes of a {@link Request} that do change between request invocations.
  *
