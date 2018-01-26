@@ -8,15 +8,17 @@
 
 package org.eclipse.buildship.core.util.gradle;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
-import com.gradleware.tooling.toolingclient.Request;
-import org.gradle.tooling.CancellationToken;
-import org.gradle.tooling.ProgressListener;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+
+import org.gradle.tooling.CancellationToken;
+import org.gradle.tooling.ProgressListener;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+
+import com.gradleware.tooling.toolingclient.Request;
 
 /**
  * Container to hold those attributes of a {@link Request} that do change between request invocations.
@@ -78,15 +80,4 @@ public final class TransientRequestAttributes {
     public CancellationToken getCancellationToken() {
         return this.cancellationToken;
     }
-
-    public void apply(Request<?> request) {
-        request.colorOutput(this.colorOutput);
-        request.standardOutput(this.standardOutput);
-        request.standardError(this.standardError);
-        request.standardInput(this.standardInput);
-        request.progressListeners(this.progressListeners.toArray(new ProgressListener[this.progressListeners.size()]));
-        request.typedProgressListeners(this.typedProgressListeners.toArray(new org.gradle.tooling.events.ProgressListener[this.typedProgressListeners.size()]));
-        request.cancellationToken(this.cancellationToken);
-    }
-
 }
