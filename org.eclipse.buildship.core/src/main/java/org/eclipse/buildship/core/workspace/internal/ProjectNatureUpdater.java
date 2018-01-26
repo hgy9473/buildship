@@ -18,7 +18,7 @@ import java.util.Set;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import com.gradleware.tooling.toolingmodel.OmniEclipseProjectNature;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProjectNature;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;

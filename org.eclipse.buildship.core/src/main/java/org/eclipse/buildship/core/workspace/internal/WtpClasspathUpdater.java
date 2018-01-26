@@ -14,10 +14,6 @@ import java.util.ListIterator;
 
 import com.google.common.collect.Lists;
 
-import com.gradleware.tooling.toolingmodel.OmniClasspathAttribute;
-import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
-import com.gradleware.tooling.toolingmodel.OmniExternalDependency;
-
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -27,6 +23,9 @@ import org.eclipse.jdt.core.JavaModelException;
 
 import org.eclipse.buildship.core.UnsupportedConfigurationException;
 import org.eclipse.buildship.core.workspace.GradleClasspathContainer;
+import org.eclipse.buildship.core.workspace.internal.model.OmniClasspathAttribute;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
+import org.eclipse.buildship.core.workspace.internal.model.OmniExternalDependency;
 
 /**
  * Updates the Gradle classpath container to have the correct deployment attribute if any of its

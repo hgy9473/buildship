@@ -13,7 +13,7 @@ import java.util.Arrays;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 
-import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;

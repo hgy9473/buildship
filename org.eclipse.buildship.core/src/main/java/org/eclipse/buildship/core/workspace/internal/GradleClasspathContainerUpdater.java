@@ -24,10 +24,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Maps;
 
-import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
-import com.gradleware.tooling.toolingmodel.OmniEclipseProjectDependency;
-import com.gradleware.tooling.toolingmodel.OmniExternalDependency;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -42,6 +38,9 @@ import org.eclipse.buildship.core.CorePlugin;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.util.classpath.ClasspathUtils;
 import org.eclipse.buildship.core.workspace.GradleClasspathContainer;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProjectDependency;
+import org.eclipse.buildship.core.workspace.internal.model.OmniExternalDependency;
 
 /**
  * Updates the classpath container of the target project.

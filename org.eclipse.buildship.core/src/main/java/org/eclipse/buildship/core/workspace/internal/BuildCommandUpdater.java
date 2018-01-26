@@ -20,8 +20,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
-import com.gradleware.tooling.toolingmodel.OmniEclipseBuildCommand;
-
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -31,6 +29,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.buildship.core.configuration.GradleProjectBuilder;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.workspace.internal.ManagedModelMergingStrategy.Result;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseBuildCommand;
 
 /**
  * Updates the build commands on the target project.

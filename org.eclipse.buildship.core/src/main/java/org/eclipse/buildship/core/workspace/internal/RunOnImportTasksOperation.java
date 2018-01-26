@@ -23,9 +23,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.io.CharStreams;
 
-import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
-import com.gradleware.tooling.toolingmodel.OmniEclipseProjectNature;
-import com.gradleware.tooling.toolingmodel.OmniProjectTask;
 import com.gradleware.tooling.toolingmodel.repository.TransientRequestAttributes;
 
 import org.eclipse.core.runtime.CoreException;
@@ -36,6 +33,9 @@ import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.configuration.RunConfiguration;
 import org.eclipse.buildship.core.console.ProcessStreams;
 import org.eclipse.buildship.core.util.progress.DelegatingProgressListener;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProject;
+import org.eclipse.buildship.core.workspace.internal.model.OmniEclipseProjectNature;
+import org.eclipse.buildship.core.workspace.internal.model.OmniProjectTask;
 
 /**
  * Runs extra tasks that set up the project so it can be used in Eclipse.
