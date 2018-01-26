@@ -10,7 +10,6 @@ package org.eclipse.buildship.core.workspace.internal;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.gradle.tooling.BuildActionExecuter;
@@ -18,20 +17,16 @@ import org.gradle.tooling.CancellationTokenSource;
 import org.gradle.tooling.ModelBuilder;
 import org.gradle.tooling.ProgressListener;
 import org.gradle.tooling.model.build.BuildEnvironment;
-import org.gradle.tooling.model.eclipse.EclipseProject;
 import org.gradle.util.GradleVersion;
 
 import com.google.common.base.Supplier;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 
-import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
 import com.gradleware.tooling.toolingmodel.repository.TransientRequestAttributes;
-import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniEclipseProject;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -75,16 +70,6 @@ final class DefaultModelProvider implements ModelProvider {
             ModelBuilder<T> builder = ConnectionAwareLauncherProxy.newModelBuilder(model, this.buildConfiguration.toGradleArguments(), transientAttributes);
             return ImmutableList.of(executeModelBuilder(builder, strategy, model));
         }
-    }
-
-    @Override
-    public Set<OmniEclipseProject> fetchEclipseGradleProjects(FetchStrategy strategy, CancellationTokenSource tokenSource, IProgressMonitor monitor) {
-        Collection<EclipseProject> models = fetchModels(EclipseProject.class, strategy, tokenSource, monitor);
-        ImmutableSet.Builder<OmniEclipseProject> result = ImmutableSet.builder();
-        for (EclipseProject model : models) {
-            result.addAll(DefaultOmniEclipseProject.from(model).getAll());
-        }
-        return result.build();
     }
 
     private <T> T executeBuildActionExecuter(final BuildActionExecuter<T> executer, FetchStrategy fetchStrategy, Class<?> cacheKey) {

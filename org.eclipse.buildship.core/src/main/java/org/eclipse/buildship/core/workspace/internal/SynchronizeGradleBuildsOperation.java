@@ -8,14 +8,18 @@
 
 package org.eclipse.buildship.core.workspace.internal;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.gradle.tooling.CancellationTokenSource;
+import org.gradle.tooling.model.eclipse.EclipseProject;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 
 import com.gradleware.tooling.toolingmodel.OmniEclipseProject;
 import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
+import com.gradleware.tooling.toolingmodel.repository.internal.DefaultOmniEclipseProject;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -44,7 +48,7 @@ public final class SynchronizeGradleBuildsOperation {
         BuildConfiguration buildConfig = this.build.getBuildConfig();
         progress.setTaskName((String.format("Synchronizing Gradle build at %s with workspace", buildConfig.getRootProjectDirectory())));
         new ImportRootProjectOperation(buildConfig, this.newProjectHandler).run(progress.newChild(1));
-        Set<OmniEclipseProject> allProjects = fetchEclipseProjects(build, tokenSource, progress.newChild(1));
+        Set<OmniEclipseProject> allProjects = fetchEclipseProjects(this.build, tokenSource, progress.newChild(1));
         new ValidateProjectLocationOperation(allProjects).run(progress.newChild(1));
         new RunOnImportTasksOperation(allProjects, buildConfig).run(progress.newChild(1), tokenSource.token());
         new SynchronizeGradleBuildOperation(allProjects, buildConfig, SynchronizeGradleBuildsOperation.this.newProjectHandler).run(progress.newChild(1));
@@ -53,7 +57,13 @@ public final class SynchronizeGradleBuildsOperation {
     private Set<OmniEclipseProject> fetchEclipseProjects(GradleBuild build, CancellationTokenSource tokenSource, SubMonitor progress) {
         progress.setTaskName("Loading Gradle project models");
         ModelProvider modelProvider = build.getModelProvider();
-        return modelProvider.fetchEclipseGradleProjects(FetchStrategy.FORCE_RELOAD, tokenSource, progress);
+
+        Collection<EclipseProject> models = modelProvider.fetchModels(EclipseProject.class, FetchStrategy.FORCE_RELOAD, tokenSource, progress);
+        ImmutableSet.Builder<OmniEclipseProject> result = ImmutableSet.builder();
+        for (EclipseProject model : models) {
+            result.addAll(DefaultOmniEclipseProject.from(model).getAll());
+        }
+        return result.build();
     }
 
     public static SynchronizeGradleBuildsOperation forSingleGradleBuild(GradleBuild build, NewProjectHandler newProjectHandler) {
