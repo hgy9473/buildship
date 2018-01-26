@@ -26,9 +26,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
-import com.gradleware.tooling.toolingmodel.repository.FetchStrategy;
-import com.gradleware.tooling.toolingmodel.util.Pair;
-import com.gradleware.tooling.toolingutils.binding.Property;
+import org.eclipse.buildship.core.util.gradle.Pair;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
@@ -62,8 +60,10 @@ import org.eclipse.buildship.core.operation.ToolingApiOperations;
 import org.eclipse.buildship.core.operation.ToolingApiStatus;
 import org.eclipse.buildship.core.operation.ToolingApiStatus.ToolingApiStatusType;
 import org.eclipse.buildship.core.projectimport.ProjectImportConfiguration;
+import org.eclipse.buildship.core.util.binding.Property;
 import org.eclipse.buildship.core.util.gradle.GradleDistributionFormatter;
 import org.eclipse.buildship.core.util.gradle.GradleDistributionWrapper;
+import org.eclipse.buildship.core.workspace.FetchStrategy;
 import org.eclipse.buildship.core.workspace.ModelProvider;
 import org.eclipse.buildship.ui.util.font.FontUtils;
 import org.eclipse.buildship.ui.util.layout.LayoutUtils;

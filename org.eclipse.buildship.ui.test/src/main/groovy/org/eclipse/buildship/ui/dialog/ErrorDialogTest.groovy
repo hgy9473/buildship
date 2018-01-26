@@ -11,14 +11,15 @@
 
 package org.eclipse.buildship.ui.dialog
 
-import org.eclipse.buildship.ui.i18n.UiMessages
-import org.eclipse.buildship.ui.notification.ExceptionDetailsDialog
-import org.eclipse.buildship.ui.test.fixtures.SwtBotSpecification
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException
 import org.eclipse.swtbot.swt.finder.waits.Conditions
 import org.eclipse.ui.PlatformUI
+
+import org.eclipse.buildship.ui.i18n.UiMessages
+import org.eclipse.buildship.ui.notification.ExceptionDetailsDialog
+import org.eclipse.buildship.ui.test.fixtures.SwtBotSpecification
 
 class ErrorDialogTest extends SwtBotSpecification {
 
