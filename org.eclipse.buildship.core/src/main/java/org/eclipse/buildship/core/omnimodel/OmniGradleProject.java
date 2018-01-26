@@ -16,8 +16,8 @@ import org.gradle.tooling.model.ProjectIdentifier;
 
 import com.google.common.base.Optional;
 
+import org.eclipse.buildship.core.util.gradle.Maybe;
 import org.eclipse.buildship.core.util.gradle.Path;
-import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
  * Provides detailed information about the Gradle project and its hierarchy.

@@ -11,9 +11,8 @@ package org.eclipse.buildship.core.omnimodel.internal;
 import org.gradle.tooling.model.Task;
 
 import org.eclipse.buildship.core.omnimodel.OmniProjectTask;
+import org.eclipse.buildship.core.util.gradle.Maybe;
 import org.eclipse.buildship.core.util.gradle.Path;
-
-import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
  * Default implementation of the {@link OmniProjectTask} interface.

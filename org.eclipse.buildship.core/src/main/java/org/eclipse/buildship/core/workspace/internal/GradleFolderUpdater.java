@@ -18,8 +18,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import com.gradleware.tooling.toolingmodel.util.Maybe;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -34,6 +32,7 @@ import org.eclipse.buildship.core.omnimodel.OmniEclipseProject;
 import org.eclipse.buildship.core.omnimodel.OmniGradleProject;
 import org.eclipse.buildship.core.preferences.PersistentModel;
 import org.eclipse.buildship.core.util.file.RelativePathUtils;
+import org.eclipse.buildship.core.util.gradle.Maybe;
 
 /**
  * Updates the derived resource markers on a project. Stores the last state in the preferences, so

@@ -30,6 +30,7 @@ public interface OmniEclipseProject extends HierarchicalModel<OmniEclipseProject
      *
      * @return the root project, never null
      */
+    @Override
     OmniEclipseProject getRoot();
 
     /**
@@ -37,6 +38,7 @@ public interface OmniEclipseProject extends HierarchicalModel<OmniEclipseProject
      *
      * @return the parent project, can be null
      */
+    @Override
     OmniEclipseProject getParent();
 
     /**
@@ -50,6 +52,7 @@ public interface OmniEclipseProject extends HierarchicalModel<OmniEclipseProject
      *
      * @return this project and all the nested child projects in its hierarchy
      */
+    @Override
     List<OmniEclipseProject> getAll();
 
     /**
@@ -58,6 +61,7 @@ public interface OmniEclipseProject extends HierarchicalModel<OmniEclipseProject
      * @param predicate the criteria to match
      * @return the matching projects
      */
+    @Override
     List<OmniEclipseProject> filter(Spec<? super OmniEclipseProject> predicate);
 
     /**
@@ -66,6 +70,7 @@ public interface OmniEclipseProject extends HierarchicalModel<OmniEclipseProject
      * @param predicate the criteria to match
      * @return the matching project, if any
      */
+    @Override
     Optional<OmniEclipseProject> tryFind(Spec<? super OmniEclipseProject> predicate);
 
     /**

@@ -10,8 +10,8 @@ package org.eclipse.buildship.core.omnimodel;
 
 import java.util.SortedSet;
 
+import org.eclipse.buildship.core.util.gradle.Maybe;
 import org.eclipse.buildship.core.util.gradle.Path;
-import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
  * Represents a task selector which is executable by Gradle. A task selector requests to execute all project tasks with a given name in the context of some project and all its

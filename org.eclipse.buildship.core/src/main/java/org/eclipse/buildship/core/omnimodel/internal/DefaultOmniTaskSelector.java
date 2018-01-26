@@ -15,9 +15,8 @@ import org.gradle.tooling.model.TaskSelector;
 import com.google.common.collect.ImmutableSortedSet;
 
 import org.eclipse.buildship.core.omnimodel.OmniTaskSelector;
+import org.eclipse.buildship.core.util.gradle.Maybe;
 import org.eclipse.buildship.core.util.gradle.Path;
-
-import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
  * Default implementation of the {@link OmniTaskSelector} interface.

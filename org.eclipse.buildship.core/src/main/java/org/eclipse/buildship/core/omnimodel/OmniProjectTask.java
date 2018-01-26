@@ -8,8 +8,8 @@
 
 package org.eclipse.buildship.core.omnimodel;
 
+import org.eclipse.buildship.core.util.gradle.Maybe;
 import org.eclipse.buildship.core.util.gradle.Path;
-import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
  * Represents a project task which is executable by Gradle.

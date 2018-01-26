@@ -29,9 +29,8 @@ import org.eclipse.buildship.core.omnimodel.OmniGradleProject;
 import org.eclipse.buildship.core.omnimodel.OmniGradleScript;
 import org.eclipse.buildship.core.omnimodel.OmniProjectTask;
 import org.eclipse.buildship.core.omnimodel.OmniTaskSelector;
+import org.eclipse.buildship.core.util.gradle.Maybe;
 import org.eclipse.buildship.core.util.gradle.Path;
-
-import com.gradleware.tooling.toolingmodel.util.Maybe;
 
 /**
  * Default implementation of the {@link OmniGradleProject} interface.
