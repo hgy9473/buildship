@@ -17,9 +17,6 @@ import org.gradle.tooling.model.gradle.GradleBuild
 
 import com.google.common.util.concurrent.FutureCallback
 
-import com.gradleware.tooling.toolingmodel.repository.FetchStrategy
-import org.eclipse.buildship.core.util.gradle.Pair
-
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.jdt.core.IJavaProject
@@ -28,6 +25,8 @@ import org.eclipse.jdt.core.JavaCore
 import org.eclipse.buildship.core.CorePlugin
 import org.eclipse.buildship.core.UnsupportedConfigurationException
 import org.eclipse.buildship.core.test.fixtures.ProjectSynchronizationSpecification
+import org.eclipse.buildship.core.util.gradle.Pair
+import org.eclipse.buildship.core.workspace.FetchStrategy
 
 class ImportingProjectWithCustomName extends ProjectSynchronizationSpecification {
 
