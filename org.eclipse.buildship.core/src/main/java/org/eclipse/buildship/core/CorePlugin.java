@@ -21,11 +21,6 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.util.tracker.ServiceTracker;
 
-import com.gradleware.tooling.toolingclient.ToolingClient;
-import com.gradleware.tooling.toolingclient.ToolingClient.CleanUpStrategy;
-import com.gradleware.tooling.toolingmodel.repository.ModelRepositoryProvider;
-import com.gradleware.tooling.toolingmodel.repository.ModelRepositoryProviderFactory;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 
@@ -82,8 +77,6 @@ public final class CorePlugin extends Plugin {
     // search the web for -target jsr14 to find out more about this obscurity
     private ServiceRegistration loggerService;
     private ServiceRegistration publishedGradleVersionsService;
-    private ServiceRegistration toolingClientService;
-    private ServiceRegistration modelRepositoryProviderService;
     private ServiceRegistration workspaceOperationsService;
     private ServiceRegistration gradleWorkspaceManagerService;
     private ServiceRegistration processStreamsProviderService;
@@ -95,8 +88,6 @@ public final class CorePlugin extends Plugin {
     // same type but with higher prioritization, useful for testing
     private ServiceTracker loggerServiceTracker;
     private ServiceTracker publishedGradleVersionsServiceTracker;
-    private ServiceTracker toolingClientServiceTracker;
-    private ServiceTracker modelRepositoryProviderServiceTracker;
     private ServiceTracker workspaceOperationsServiceTracker;
     private ServiceTracker gradleWorkspaceManagerServiceTracker;
     private ServiceTracker processStreamsProviderServiceTracker;
@@ -122,7 +113,6 @@ public final class CorePlugin extends Plugin {
 
     @Override
     public void stop(BundleContext context) throws Exception {
-        toolingClient().stop(CleanUpStrategy.GRACEFULLY);
         unregisterServices();
         plugin = null;
         super.stop(context);
@@ -142,8 +132,6 @@ public final class CorePlugin extends Plugin {
         // initialize service trackers before the services are created
         this.loggerServiceTracker = createServiceTracker(context, Logger.class);
         this.publishedGradleVersionsServiceTracker = createServiceTracker(context, PublishedGradleVersionsWrapper.class);
-        this.toolingClientServiceTracker = createServiceTracker(context, ToolingClient.class);
-        this.modelRepositoryProviderServiceTracker = createServiceTracker(context, ModelRepositoryProvider.class);
         this.workspaceOperationsServiceTracker = createServiceTracker(context, WorkspaceOperations.class);
         this.gradleWorkspaceManagerServiceTracker = createServiceTracker(context, GradleWorkspaceManager.class);
         this.processStreamsProviderServiceTracker = createServiceTracker(context, ProcessStreamsProvider.class);
@@ -154,8 +142,6 @@ public final class CorePlugin extends Plugin {
         // register all services
         this.loggerService = registerService(context, Logger.class, createLogger(), preferences);
         this.publishedGradleVersionsService = registerService(context, PublishedGradleVersionsWrapper.class, createPublishedGradleVersions(), preferences);
-        this.toolingClientService = registerService(context, ToolingClient.class, createToolingClient(), preferences);
-        this.modelRepositoryProviderService = registerService(context, ModelRepositoryProvider.class, createModelRepositoryProvider(), preferences);
         this.workspaceOperationsService = registerService(context, WorkspaceOperations.class, createWorkspaceOperations(), preferences);
         this.gradleWorkspaceManagerService = registerService(context, GradleWorkspaceManager.class, createGradleWorkspaceManager(), preferences);
         this.processStreamsProviderService = registerService(context, ProcessStreamsProvider.class, createProcessStreamsProvider(), preferences);
@@ -188,15 +174,6 @@ public final class CorePlugin extends Plugin {
 
     private PublishedGradleVersionsWrapper createPublishedGradleVersions() {
         return new PublishedGradleVersionsWrapper();
-    }
-
-    private ToolingClient createToolingClient() {
-        return ToolingClient.newClient();
-    }
-
-    private ModelRepositoryProvider createModelRepositoryProvider() {
-        ToolingClient toolingClient = (ToolingClient) this.toolingClientServiceTracker.getService();
-        return ModelRepositoryProviderFactory.create(toolingClient);
     }
 
     private WorkspaceOperations createWorkspaceOperations() {
@@ -234,8 +211,6 @@ public final class CorePlugin extends Plugin {
         this.processStreamsProviderService.unregister();
         this.gradleWorkspaceManagerService.unregister();
         this.workspaceOperationsService.unregister();
-        this.modelRepositoryProviderService.unregister();
-        this.toolingClientService.unregister();
         this.publishedGradleVersionsService.unregister();
         this.loggerService.unregister();
 
@@ -245,8 +220,6 @@ public final class CorePlugin extends Plugin {
         this.processStreamsProviderServiceTracker.close();
         this.gradleWorkspaceManagerServiceTracker.close();
         this.workspaceOperationsServiceTracker.close();
-        this.modelRepositoryProviderServiceTracker.close();
-        this.toolingClientServiceTracker.close();
         this.publishedGradleVersionsServiceTracker.close();
         this.loggerServiceTracker.close();
     }
@@ -261,14 +234,6 @@ public final class CorePlugin extends Plugin {
 
     public static PublishedGradleVersionsWrapper publishedGradleVersions() {
         return (PublishedGradleVersionsWrapper) getInstance().publishedGradleVersionsServiceTracker.getService();
-    }
-
-    public static ToolingClient toolingClient() {
-        return (ToolingClient) getInstance().toolingClientServiceTracker.getService();
-    }
-
-    public static ModelRepositoryProvider modelRepositoryProvider() {
-        return (ModelRepositoryProvider) getInstance().modelRepositoryProviderServiceTracker.getService();
     }
 
     public static WorkspaceOperations workspaceOperations() {
