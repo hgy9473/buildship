@@ -7,8 +7,8 @@ import com.gradleware.tooling.toolingmodel.OmniBuildEnvironment
 import com.gradleware.tooling.toolingmodel.OmniGradleBuild
 import com.gradleware.tooling.toolingmodel.util.Pair
 
-import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.IWorkspaceRunnable
 import org.eclipse.core.runtime.jobs.Job
 
@@ -23,7 +23,7 @@ import org.eclipse.buildship.core.workspace.NewProjectHandler
 
 abstract class ProjectSynchronizationSpecification extends WorkspaceSpecification {
 
-    protected static final GradleDistribution DEFAULT_DISTRIBUTION = GradleDistribution.fromBuild()
+    protected static final GradleDistribution DEFAULT_DISTRIBUTION = GradleDistribution.forVersion(CorePlugin.publishedGradleVersions().versions.first().toString())
 
     protected void synchronizeAndWait(File location, NewProjectHandler newProjectHandler = NewProjectHandler.IMPORT_AND_MERGE) {
         startSynchronization(location, DEFAULT_DISTRIBUTION, newProjectHandler)
