@@ -1,5 +1,7 @@
 package org.eclipse.buildship.core.workspace.internal
 
+import com.gradleware.tooling.toolingclient.GradleDistribution
+
 import org.eclipse.buildship.core.Logger
 import org.eclipse.buildship.core.notification.UserNotification
 import org.eclipse.buildship.core.test.fixtures.ProjectSynchronizationSpecification
@@ -9,7 +11,7 @@ class ImportingProjectInDefaultLocation extends ProjectSynchronizationSpecificat
 
     def "Can import projects located in workspace folder with default name"() {
         when:
-        synchronizeAndWait(workspaceDir('sample'))
+        importAndWait(workspaceDir('sample'), GradleDistribution.fromBuild())
 
         then:
         findProject("sample")
@@ -26,14 +28,14 @@ class ImportingProjectInDefaultLocation extends ProjectSynchronizationSpecificat
         }
 
         when:
-        synchronizeAndWait(rootProject)
+        importAndWait(rootProject, GradleDistribution.fromBuild())
 
         then:
         1 * logger.warn(*_)
         1 * notification.errorOccurred(*_)
     }
 
-    def "Disallow synchornizing projects located in workspace folder and with custom root name"() {
+    def "Disallow synchronizing projects located in workspace folder and with custom root name"() {
         setup:
         Logger logger = Mock(Logger)
         UserNotification notification = Mock(UserNotification)
@@ -42,7 +44,7 @@ class ImportingProjectInDefaultLocation extends ProjectSynchronizationSpecificat
         File rootProject = workspaceDir('sample2')
 
         when:
-        synchronizeAndWait(rootProject)
+        importAndWait(rootProject, GradleDistribution.fromBuild())
 
         then:
         0 * logger.warn(*_)
@@ -50,7 +52,7 @@ class ImportingProjectInDefaultLocation extends ProjectSynchronizationSpecificat
 
         when:
         new File(rootProject, 'settings.gradle') << "rootProject.name = 'my-project-name-is-different-than-the-folder'"
-        synchronizeAndWait(rootProject)
+        synchronizeAndWait(rootProject, GradleDistribution.fromBuild())
 
         then:
         1 * logger.warn(*_)

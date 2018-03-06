@@ -147,8 +147,7 @@ class ImportingWtpProjects extends ProjectSynchronizationSpecification {
         then:
         def project = findProject('project')
         IClasspathEntry dependency = resolvedClasspath(project).find { it.path.lastSegment() == 'junit-4.12.jar' }
-        IClasspathAttribute[] attributes = dependency.getExtraAttributes()
-        attributes.length == 0
+        !hasDeploymentAttributes(dependency)
     }
 
     def "Deployed attribute is set for deployed dependencies"() {
@@ -403,6 +402,12 @@ class ImportingWtpProjects extends ProjectSynchronizationSpecification {
 
     private hasComponentDescriptor(File root) {
         new File(root, ".settings/org.eclipse.wst.common.component").exists()
+    }
+
+    private boolean hasDeploymentAttributes(IClasspathEntry entry) {
+        entry.extraAttributes.find { IClasspathAttribute attribute ->
+            [DEPLOYED, NON_DEPLOYED].contains(attribute.name)
+        }
     }
 
 }

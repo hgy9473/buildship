@@ -55,6 +55,7 @@ abstract class WorkspaceSpecification extends Specification {
     private File externalTestDir
 
     def setup() {
+        deleteAllProjects(true)
         externalTestDir = tempFolderProvider.newFolder('external')
     }
 

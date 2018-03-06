@@ -23,10 +23,16 @@ import org.eclipse.buildship.core.workspace.NewProjectHandler
 
 abstract class ProjectSynchronizationSpecification extends WorkspaceSpecification {
 
-    protected static final GradleDistribution DEFAULT_DISTRIBUTION = GradleDistribution.forVersion(CorePlugin.publishedGradleVersions().versions.first().toString())
+    protected static final GradleDistribution DEFAULT_DISTRIBUTION = GradleDistribution.forVersion(CorePlugin.publishedGradleVersions().versions.first().version)
 
     protected void synchronizeAndWait(File location, NewProjectHandler newProjectHandler = NewProjectHandler.IMPORT_AND_MERGE) {
         startSynchronization(location, DEFAULT_DISTRIBUTION, newProjectHandler)
+        waitForGradleJobsToFinish()
+        waitForResourceChangeEvents()
+    }
+
+    protected void synchronizeAndWait(File location, GradleDistribution gradleDistribution) {
+        startSynchronization(location, gradleDistribution, NewProjectHandler.IMPORT_AND_MERGE)
         waitForGradleJobsToFinish()
         waitForResourceChangeEvents()
     }
