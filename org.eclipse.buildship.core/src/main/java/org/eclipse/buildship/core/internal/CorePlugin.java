@@ -30,7 +30,6 @@ import org.eclipse.buildship.core.internal.console.ProcessStreamsProvider;
 import org.eclipse.buildship.core.internal.console.impl.StdProcessStreamsProvider;
 import org.eclipse.buildship.core.internal.event.ListenerRegistry;
 import org.eclipse.buildship.core.internal.event.impl.DefaultListenerRegistry;
-import org.eclipse.buildship.core.internal.invocation.InvocationCustomizer;
 import org.eclipse.buildship.core.internal.launch.ExternalLaunchConfigurationManager;
 import org.eclipse.buildship.core.internal.launch.GradleLaunchConfigurationManager;
 import org.eclipse.buildship.core.internal.launch.impl.DefaultExternalLaunchConfigurationManager;
@@ -48,6 +47,7 @@ import org.eclipse.buildship.core.internal.workspace.impl.DefaultGradleWorkspace
 import org.eclipse.buildship.core.internal.workspace.impl.DefaultWorkspaceOperations;
 import org.eclipse.buildship.core.internal.workspace.impl.ProjectChangeListener;
 import org.eclipse.buildship.core.internal.workspace.impl.SynchronizingBuildScriptUpdateListener;
+import org.eclipse.buildship.core.invocation.InvocationCustomizer;
 
 /**
  * The plug-in runtime class for the Gradle integration plugin containing the non-UI elements.

@@ -1,4 +1,4 @@
-package org.eclipse.buildship.core.internal.invocation
+package org.eclipse.buildship.core.invocation
 
 import org.gradle.tooling.LongRunningOperation
 import org.gradle.tooling.model.build.BuildEnvironment
@@ -10,6 +10,7 @@ import org.eclipse.buildship.core.internal.CorePlugin
 import org.eclipse.buildship.core.internal.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.test.fixtures.ProjectSynchronizationSpecification
 import org.eclipse.buildship.core.internal.util.extension.InvocationCustomizerCollector
+import org.eclipse.buildship.core.invocation.InvocationCustomizer
 
 class InvocationCustomizerTest extends ProjectSynchronizationSpecification {
 

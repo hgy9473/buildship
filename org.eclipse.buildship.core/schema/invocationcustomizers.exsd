@@ -55,7 +55,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.buildship.core.internal.invocation.InvocationCustomizer"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.buildship.core.invocation.InvocationCustomizer"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -83,7 +83,7 @@
 &lt;p/&gt;
 
 &lt;pre&gt;
-&lt;extension point=&quot;org.eclipse.buildship.core.internal.invocationcustomizers&quot;&gt;
+&lt;extension point=&quot;org.eclipse.buildship.core.invocationcustomizers&quot;&gt;
     &lt;customizer class=&quot;EclipseInstallLocationGradleBuild&quot; /&gt;
 &lt;/extension&gt;
 &lt;/pre&gt;
@@ -95,7 +95,7 @@
 &lt;pre&gt;
 import java.util.*;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.buildship.core.internal.invocation.InvocationCustomizer;
+import org.eclipse.buildship.core.invocation.InvocationCustomizer;
 
 public class EclipseInstallLocationGradleBuild implements InvocationCustomizer {
      @Override public List&lt;String&gt; getExtraArguments() {
