@@ -22,8 +22,8 @@ import com.google.common.collect.FluentIterable;
 
 import org.eclipse.jface.action.Action;
 
-import org.eclipse.buildship.core.configuration.RunConfiguration;
-import org.eclipse.buildship.core.launch.RunGradleTestLaunchRequestJob;
+import org.eclipse.buildship.core.internal.configuration.RunConfiguration;
+import org.eclipse.buildship.core.internal.launch.RunGradleTestLaunchRequestJob;
 import org.eclipse.buildship.ui.internal.util.gradle.GradleUtils;
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection;
 import org.eclipse.buildship.ui.internal.util.nodeselection.SelectionSpecificAction;

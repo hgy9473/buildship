@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.action.Action;
 
-import org.eclipse.buildship.core.configuration.RunConfiguration;
-import org.eclipse.buildship.core.launch.RunGradleTestLaunchRequestJob;
+import org.eclipse.buildship.core.internal.configuration.RunConfiguration;
+import org.eclipse.buildship.core.internal.launch.RunGradleTestLaunchRequestJob;
 import org.eclipse.buildship.ui.internal.PluginImages;
 import org.eclipse.buildship.ui.internal.PluginImage.ImageState;
 import org.eclipse.buildship.ui.internal.i18n.UiMessages;

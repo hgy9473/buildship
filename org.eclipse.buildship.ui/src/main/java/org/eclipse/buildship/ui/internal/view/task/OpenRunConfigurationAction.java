@@ -13,8 +13,8 @@ package org.eclipse.buildship.ui.internal.view.task;
 
 import com.google.common.base.Optional;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.launch.GradleRunConfigurationAttributes;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
 import org.eclipse.buildship.ui.internal.util.action.CommandBackedAction;
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection;
 import org.eclipse.buildship.ui.internal.util.nodeselection.SelectionSpecificAction;

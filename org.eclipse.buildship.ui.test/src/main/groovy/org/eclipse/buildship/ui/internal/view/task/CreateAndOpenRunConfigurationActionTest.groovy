@@ -5,7 +5,8 @@ import org.junit.rules.TemporaryFolder;
 import spock.lang.AutoCleanup;
 
 import com.google.common.base.Optional
-import org.eclipse.buildship.core.launch.GradleLaunchConfigurationManager
+
+import org.eclipse.buildship.core.internal.launch.GradleLaunchConfigurationManager
 import org.eclipse.buildship.ui.internal.UiPluginConstants
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection
 import org.eclipse.buildship.ui.internal.test.fixtures.TestEnvironment

@@ -53,7 +53,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IActionBars;
 
-import org.eclipse.buildship.core.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
 import org.eclipse.buildship.ui.internal.extviewer.FilteredTree;
 import org.eclipse.buildship.ui.internal.extviewer.PatternFilter;
 import org.eclipse.buildship.ui.internal.util.nodeselection.ActionShowingContextMenuListener;

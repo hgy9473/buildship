@@ -15,7 +15,7 @@ import org.osgi.service.prefs.BackingStoreException;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
-import org.eclipse.buildship.core.util.preference.EclipsePreferencesUtils;
+import org.eclipse.buildship.core.internal.util.preference.EclipsePreferencesUtils;
 import org.eclipse.buildship.ui.internal.UiPlugin;
 
 /**

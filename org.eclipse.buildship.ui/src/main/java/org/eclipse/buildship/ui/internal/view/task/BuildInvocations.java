@@ -31,7 +31,7 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.google.common.collect.TreeBasedTable;
 
-import org.eclipse.buildship.core.util.gradle.Path;
+import org.eclipse.buildship.core.internal.util.gradle.Path;
 
 /**
  * Holds a set of tasks that belongs to one project.

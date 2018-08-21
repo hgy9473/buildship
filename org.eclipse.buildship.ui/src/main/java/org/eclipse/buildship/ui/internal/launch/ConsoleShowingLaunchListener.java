@@ -22,9 +22,9 @@ import org.eclipse.debug.core.ILaunchListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.configuration.RunConfiguration;
-import org.eclipse.buildship.core.launch.GradleRunConfigurationDelegate;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.configuration.RunConfiguration;
+import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationDelegate;
 import org.eclipse.buildship.ui.internal.UiPlugin;
 import org.eclipse.buildship.ui.internal.UiPluginConstants;
 import org.eclipse.buildship.ui.internal.util.workbench.WorkbenchUtils;

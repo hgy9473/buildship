@@ -18,7 +18,7 @@ import com.google.common.collect.Ordering;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 
-import org.eclipse.buildship.core.util.gradle.HierarchicalElementUtils;
+import org.eclipse.buildship.core.internal.util.gradle.HierarchicalElementUtils;
 import org.eclipse.buildship.ui.internal.view.task.TaskNode.TaskNodeType;
 
 /**

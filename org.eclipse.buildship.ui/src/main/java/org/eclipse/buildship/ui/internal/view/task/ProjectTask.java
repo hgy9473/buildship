@@ -10,7 +10,7 @@ package org.eclipse.buildship.ui.internal.view.task;
 
 import org.gradle.tooling.model.Task;
 
-import org.eclipse.buildship.core.util.gradle.Path;
+import org.eclipse.buildship.core.internal.util.gradle.Path;
 
 /**
  * A task that is executed only on a target project.

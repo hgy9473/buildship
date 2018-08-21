@@ -11,7 +11,7 @@
 
 package org.eclipse.buildship.ui.internal.view.task;
 
-import org.eclipse.buildship.core.launch.GradleRunConfigurationAttributes;
+import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection;
 
 import org.eclipse.core.commands.ExecutionEvent;

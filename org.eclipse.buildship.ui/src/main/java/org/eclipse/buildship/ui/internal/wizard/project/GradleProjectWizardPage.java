@@ -29,8 +29,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkingSet;
 
-import org.eclipse.buildship.core.projectimport.ProjectImportConfiguration;
-import org.eclipse.buildship.core.util.file.FileUtils;
+import org.eclipse.buildship.core.internal.projectimport.ProjectImportConfiguration;
+import org.eclipse.buildship.core.internal.util.file.FileUtils;
 import org.eclipse.buildship.ui.internal.UiPlugin;
 import org.eclipse.buildship.ui.internal.UiPluginConstants;
 import org.eclipse.buildship.ui.internal.i18n.UiMessages;

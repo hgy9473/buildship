@@ -10,9 +10,9 @@ import org.eclipse.swtbot.swt.finder.waits.DefaultCondition
 import org.eclipse.swtbot.swt.finder.waits.ICondition
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell
 
-import org.eclipse.buildship.core.CorePlugin
-import org.eclipse.buildship.core.UnsupportedConfigurationException
-import org.eclipse.buildship.core.workspace.WorkspaceOperations
+import org.eclipse.buildship.core.internal.CorePlugin
+import org.eclipse.buildship.core.internal.UnsupportedConfigurationException
+import org.eclipse.buildship.core.internal.workspace.WorkspaceOperations
 import org.eclipse.buildship.ui.internal.test.fixtures.SwtBotSpecification
 
 class ProjectImportWizardUiTest extends SwtBotSpecification {

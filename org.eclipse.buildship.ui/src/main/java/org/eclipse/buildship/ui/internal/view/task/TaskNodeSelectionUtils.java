@@ -21,12 +21,12 @@ import com.google.common.collect.ImmutableList;
 
 import org.eclipse.core.resources.IProject;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.configuration.BuildConfiguration;
-import org.eclipse.buildship.core.launch.GradleRunConfigurationAttributes;
-import org.eclipse.buildship.core.util.gradle.HierarchicalElementUtils;
-import org.eclipse.buildship.core.util.variable.ExpressionUtils;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
+import org.eclipse.buildship.core.internal.util.gradle.HierarchicalElementUtils;
+import org.eclipse.buildship.core.internal.util.variable.ExpressionUtils;
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection;
 
 /**

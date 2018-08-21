@@ -16,9 +16,9 @@ import com.google.common.base.Preconditions;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 
-import org.eclipse.buildship.core.console.ProcessDescription;
-import org.eclipse.buildship.core.console.ProcessStreams;
-import org.eclipse.buildship.core.console.ProcessStreamsProvider;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.console.ProcessStreams;
+import org.eclipse.buildship.core.internal.console.ProcessStreamsProvider;
 
 /**
  * Provider of {@link ProcessStreams} instances that are backed by console pages of the Eclipse

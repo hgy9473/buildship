@@ -19,8 +19,8 @@ import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem
 
-import org.eclipse.buildship.core.CorePlugin
-import org.eclipse.buildship.core.workspace.FetchStrategy
+import org.eclipse.buildship.core.internal.CorePlugin
+import org.eclipse.buildship.core.internal.workspace.FetchStrategy
 
 
 class TaskViewContentTest extends BaseTaskViewTest {

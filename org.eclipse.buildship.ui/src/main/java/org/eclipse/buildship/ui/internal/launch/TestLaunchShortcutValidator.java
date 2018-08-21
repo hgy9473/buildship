@@ -27,9 +27,9 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.configuration.GradleProjectNature;
-import org.eclipse.buildship.core.util.classpath.ClasspathUtils;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
+import org.eclipse.buildship.core.internal.util.classpath.ClasspathUtils;
 
 /**
  * Tests if a set of {@link IJavaElement} instances are valid to launch as tests with.

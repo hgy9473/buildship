@@ -11,8 +11,8 @@ package org.eclipse.buildship.ui.internal.workspace;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchListener;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.workspace.WorkbenchShutdownEvent;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.workspace.WorkbenchShutdownEvent;
 
 /**
  * Listener broadcasting {@link WorkbenchShutdownEvent} before Eclipse shuts down.

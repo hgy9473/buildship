@@ -14,10 +14,10 @@ package org.eclipse.buildship.ui.internal.view.execution;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
-import org.eclipse.buildship.core.console.ProcessDescription;
-import org.eclipse.buildship.core.event.Event;
-import org.eclipse.buildship.core.event.EventListener;
-import org.eclipse.buildship.core.launch.ExecuteLaunchRequestEvent;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.event.Event;
+import org.eclipse.buildship.core.internal.event.EventListener;
+import org.eclipse.buildship.core.internal.launch.ExecuteLaunchRequestEvent;
 import org.eclipse.buildship.ui.internal.util.workbench.WorkbenchUtils;
 
 /**

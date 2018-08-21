@@ -35,12 +35,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
-import org.eclipse.buildship.core.i18n.CoreMessages;
-import org.eclipse.buildship.core.launch.GradleRunConfigurationAttributes;
-import org.eclipse.buildship.core.util.binding.Validator;
-import org.eclipse.buildship.core.util.binding.Validators;
-import org.eclipse.buildship.core.util.file.FileUtils;
-import org.eclipse.buildship.core.util.variable.ExpressionUtils;
+import org.eclipse.buildship.core.internal.i18n.CoreMessages;
+import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
+import org.eclipse.buildship.core.internal.util.binding.Validator;
+import org.eclipse.buildship.core.internal.util.binding.Validators;
+import org.eclipse.buildship.core.internal.util.file.FileUtils;
+import org.eclipse.buildship.core.internal.util.variable.ExpressionUtils;
 import org.eclipse.buildship.ui.internal.i18n.UiMessages;
 import org.eclipse.buildship.ui.internal.util.file.DirectoryDialogSelectionListener;
 import org.eclipse.buildship.ui.internal.util.font.FontUtils;

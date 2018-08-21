@@ -33,12 +33,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.i18n.CoreMessages;
-import org.eclipse.buildship.core.util.gradle.GradleDistributionInfo;
-import org.eclipse.buildship.core.util.gradle.GradleDistributionType;
-import org.eclipse.buildship.core.util.gradle.GradleVersion;
-import org.eclipse.buildship.core.util.gradle.PublishedGradleVersionsWrapper;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.i18n.CoreMessages;
+import org.eclipse.buildship.core.internal.util.gradle.GradleDistributionInfo;
+import org.eclipse.buildship.core.internal.util.gradle.GradleDistributionType;
+import org.eclipse.buildship.core.internal.util.gradle.GradleVersion;
+import org.eclipse.buildship.core.internal.util.gradle.PublishedGradleVersionsWrapper;
 import org.eclipse.buildship.ui.internal.i18n.UiMessages;
 import org.eclipse.buildship.ui.internal.util.file.DirectoryDialogSelectionListener;
 import org.eclipse.buildship.ui.internal.util.font.FontUtils;

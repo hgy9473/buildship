@@ -19,7 +19,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 
-import org.eclipse.buildship.core.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
 import org.eclipse.buildship.ui.internal.view.MessagePage;
 import org.eclipse.buildship.ui.internal.view.MultiPageView;
 import org.eclipse.buildship.ui.internal.view.Page;

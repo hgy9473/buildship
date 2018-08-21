@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
-import org.eclipse.buildship.core.util.binding.Validator;
+import org.eclipse.buildship.core.internal.util.binding.Validator;
 import org.eclipse.buildship.ui.internal.util.widget.GradleUserHomeGroup;
 
 /**

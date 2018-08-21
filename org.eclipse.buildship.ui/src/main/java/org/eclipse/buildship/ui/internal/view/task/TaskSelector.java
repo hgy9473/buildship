@@ -12,7 +12,7 @@ import java.util.SortedSet;
 
 import com.google.common.collect.ImmutableSortedSet;
 
-import org.eclipse.buildship.core.util.gradle.Path;
+import org.eclipse.buildship.core.internal.util.gradle.Path;
 
 /**
  * A task that is executed on a target project and on all sub-projects where the same task is

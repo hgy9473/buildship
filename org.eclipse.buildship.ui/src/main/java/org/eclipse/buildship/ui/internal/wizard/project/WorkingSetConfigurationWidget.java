@@ -35,7 +35,7 @@ import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.WorkingSetConfigurationBlock;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
 
 /**
  * Enhances the {@link WorkingSetConfigurationBlock} class with {@link WorkingSetChangedListener}

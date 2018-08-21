@@ -16,8 +16,8 @@ import org.eclipse.ui.console.IPatternMatchListener;
 import org.eclipse.ui.console.PatternMatchEvent;
 import org.eclipse.ui.console.TextConsole;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.util.string.PatternUtils;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.util.string.PatternUtils;
 
 /**
  * Transforms all URLs to clickable links in the target console.

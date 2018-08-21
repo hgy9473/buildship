@@ -41,8 +41,8 @@ import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.workspace.FetchStrategy;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.workspace.FetchStrategy;
 import org.eclipse.buildship.ui.internal.UiPluginConstants;
 import org.eclipse.buildship.ui.internal.extviewer.FilteredTree;
 import org.eclipse.buildship.ui.internal.extviewer.PatternFilter;

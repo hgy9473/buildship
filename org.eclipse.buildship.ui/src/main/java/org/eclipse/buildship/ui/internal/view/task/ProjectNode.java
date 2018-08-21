@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableMap;
 
 import org.eclipse.core.resources.IProject;
 
-import org.eclipse.buildship.core.util.gradle.Path;
+import org.eclipse.buildship.core.internal.util.gradle.Path;
 
 
 /**

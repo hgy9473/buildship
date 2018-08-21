@@ -16,10 +16,10 @@ import org.eclipse.ui.console.IPatternMatchListener;
 import org.eclipse.ui.console.PatternMatchEvent;
 import org.eclipse.ui.console.TextConsole;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.console.ProcessDescription;
-import org.eclipse.buildship.core.scan.BuildScanCreatedEvent;
-import org.eclipse.buildship.core.util.string.PatternUtils;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.scan.BuildScanCreatedEvent;
+import org.eclipse.buildship.core.internal.util.string.PatternUtils;
 
 /**
  * Finds build scan URL console output.

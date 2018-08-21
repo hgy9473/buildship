@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 
-import org.eclipse.buildship.core.marker.GradleErrorMarker;
+import org.eclipse.buildship.core.internal.marker.GradleErrorMarker;
 
 /**
  * Property page displaying details of Gradle problem markers.

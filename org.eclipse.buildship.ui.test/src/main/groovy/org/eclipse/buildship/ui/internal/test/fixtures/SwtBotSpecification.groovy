@@ -31,7 +31,7 @@ import org.eclipse.ui.console.IConsole
 import org.eclipse.ui.console.IConsoleListener
 import org.eclipse.ui.console.IConsoleManager
 
-import org.eclipse.buildship.core.CorePlugin
+import org.eclipse.buildship.core.internal.CorePlugin
 import org.eclipse.buildship.ui.internal.UiPlugin
 import org.eclipse.buildship.ui.internal.console.GradleConsole
 

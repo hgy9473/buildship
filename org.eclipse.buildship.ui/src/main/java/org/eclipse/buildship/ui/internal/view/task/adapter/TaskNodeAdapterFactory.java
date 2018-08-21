@@ -14,7 +14,7 @@ package org.eclipse.buildship.ui.internal.view.task.adapter;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.views.properties.IPropertySource;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
 import org.eclipse.buildship.ui.internal.view.task.ProjectTaskNode;
 import org.eclipse.buildship.ui.internal.view.task.TaskNode;
 import org.eclipse.buildship.ui.internal.view.task.TaskSelectorNode;

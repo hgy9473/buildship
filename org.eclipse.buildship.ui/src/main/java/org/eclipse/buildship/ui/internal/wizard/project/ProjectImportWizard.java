@@ -18,8 +18,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
-import org.eclipse.buildship.core.projectimport.ProjectImportConfiguration;
-import org.eclipse.buildship.core.workspace.NewProjectHandler;
+import org.eclipse.buildship.core.internal.projectimport.ProjectImportConfiguration;
+import org.eclipse.buildship.core.internal.workspace.NewProjectHandler;
 import org.eclipse.buildship.ui.internal.HelpContext;
 import org.eclipse.buildship.ui.internal.UiPlugin;
 import org.eclipse.buildship.ui.internal.util.workbench.WorkingSetUtils;

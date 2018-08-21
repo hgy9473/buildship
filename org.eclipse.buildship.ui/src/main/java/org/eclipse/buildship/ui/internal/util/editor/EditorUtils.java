@@ -11,7 +11,7 @@
 
 package org.eclipse.buildship.ui.internal.util.editor;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
 import org.eclipse.buildship.ui.internal.UiPlugin;
 
 import org.eclipse.core.resources.IFile;

@@ -28,7 +28,7 @@ import org.eclipse.ui.IWorkingSet
 import org.eclipse.ui.IWorkingSetManager
 import org.eclipse.ui.PlatformUI
 
-import org.eclipse.buildship.core.CorePlugin
+import org.eclipse.buildship.core.internal.CorePlugin
 import org.eclipse.buildship.ui.internal.test.fixtures.LegacyEclipseSpockTestHelper
 import org.eclipse.buildship.ui.internal.test.fixtures.SwtBotSpecification
 

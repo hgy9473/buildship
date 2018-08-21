@@ -35,7 +35,7 @@ import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WordRule;
 
-import org.eclipse.buildship.core.util.preference.EclipsePreferencesUtils;
+import org.eclipse.buildship.core.internal.util.preference.EclipsePreferencesUtils;
 
 /**
  * Presentation reconciler for the Gradle Editor.

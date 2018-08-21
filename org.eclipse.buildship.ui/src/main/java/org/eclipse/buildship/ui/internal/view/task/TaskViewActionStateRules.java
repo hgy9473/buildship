@@ -23,7 +23,7 @@ import com.google.common.collect.Iterables;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import org.eclipse.buildship.core.util.gradle.HierarchicalElementUtils;
+import org.eclipse.buildship.core.internal.util.gradle.HierarchicalElementUtils;
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection;
 
 /**

@@ -22,7 +22,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
 import org.eclipse.buildship.ui.internal.util.nodeselection.NodeSelection;
 
 /**

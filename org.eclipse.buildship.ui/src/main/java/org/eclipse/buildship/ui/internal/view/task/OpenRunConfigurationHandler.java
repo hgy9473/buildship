@@ -17,8 +17,8 @@ import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.launch.GradleRunConfigurationAttributes;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
 import org.eclipse.buildship.ui.internal.UiPluginConstants;
 
 /**

@@ -22,7 +22,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-import org.eclipse.buildship.core.util.file.FileUtils;
+import org.eclipse.buildship.core.internal.util.file.FileUtils;
 import org.eclipse.buildship.ui.internal.view.task.ProjectNode;
 
 /**

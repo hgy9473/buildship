@@ -21,9 +21,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 
-import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.i18n.CoreMessages;
-import org.eclipse.buildship.core.util.gradle.Pair;
+import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.i18n.CoreMessages;
+import org.eclipse.buildship.core.internal.util.gradle.Pair;
 
 /**
  * Widget containing the following Gradle configuration elements.

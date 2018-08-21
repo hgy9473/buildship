@@ -15,7 +15,7 @@ import java.io.File;
 
 import com.google.common.base.Preconditions;
 
-import org.eclipse.buildship.core.util.binding.Property;
+import org.eclipse.buildship.core.internal.util.binding.Property;
 
 /**
  * Serves as the extra data model of the project creation wizard.

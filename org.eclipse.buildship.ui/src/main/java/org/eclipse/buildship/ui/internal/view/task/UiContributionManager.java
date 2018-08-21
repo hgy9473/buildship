@@ -22,7 +22,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Menu;
 
-import org.eclipse.buildship.core.CorePlugin;
+import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.ui.internal.UiPluginConstants;
 import org.eclipse.buildship.ui.internal.util.nodeselection.ActionEnablingSelectionChangedListener;
 import org.eclipse.buildship.ui.internal.util.nodeselection.ActionShowingContextMenuListener;

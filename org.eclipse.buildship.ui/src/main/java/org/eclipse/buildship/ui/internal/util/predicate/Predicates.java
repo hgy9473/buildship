@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.internal.ui.packageview.PackageFragmentRootContainer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
-import org.eclipse.buildship.core.configuration.GradleProjectNature;
+import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
 
 /**
  * Supplies some useful {@link Predicate} instances. May also be used used in PropertyTesters.

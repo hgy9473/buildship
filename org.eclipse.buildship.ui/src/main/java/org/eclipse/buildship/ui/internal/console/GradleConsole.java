@@ -30,9 +30,9 @@ import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IOConsoleInputStream;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 
-import org.eclipse.buildship.core.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.console.ProcessDescription;
-import org.eclipse.buildship.core.console.ProcessStreams;
+import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.console.ProcessStreams;
 import org.eclipse.buildship.ui.internal.PluginImages;
 import org.eclipse.buildship.ui.internal.UiPlugin;
 

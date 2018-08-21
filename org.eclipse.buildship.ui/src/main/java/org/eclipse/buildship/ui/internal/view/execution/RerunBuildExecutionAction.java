@@ -12,7 +12,7 @@
 package org.eclipse.buildship.ui.internal.view.execution;
 
 import com.google.common.base.Preconditions;
-import org.eclipse.buildship.core.console.ProcessDescription;
+import org.eclipse.buildship.core.internal.console.ProcessDescription;
 import org.eclipse.buildship.ui.internal.PluginImages;
 import org.eclipse.buildship.ui.internal.PluginImage.ImageState;
 import org.eclipse.buildship.ui.internal.i18n.UiMessages;
