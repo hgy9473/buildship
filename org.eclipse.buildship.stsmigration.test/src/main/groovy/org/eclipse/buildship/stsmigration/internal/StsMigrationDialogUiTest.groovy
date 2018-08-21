@@ -1,4 +1,7 @@
-package org.eclipse.buildship.stsmigration
+package org.eclipse.buildship.stsmigration.internal
+
+import spock.lang.Shared
+import spock.lang.Specification
 
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.swt.widgets.Shell
@@ -12,12 +15,6 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException
 import org.eclipse.ui.PlatformUI
-
-import org.eclipse.buildship.stsmigration.StsMigrationDialog
-import org.eclipse.buildship.stsmigration.StsMigrationState
-
-import spock.lang.Shared
-import spock.lang.Specification
 
 @SuppressWarnings("GroovyAccessibility")
 class StsMigrationDialogUiTest extends Specification {
