@@ -40,10 +40,10 @@ import org.eclipse.buildship.core.configuration.ConfigurationManager
 import org.eclipse.buildship.core.launch.GradleRunConfigurationDelegate
 import org.eclipse.buildship.core.marker.GradleErrorMarker
 import org.eclipse.buildship.core.preferences.PersistentModel
-import org.eclipse.buildship.core.preferences.internal.DefaultPersistentModel
+import org.eclipse.buildship.core.preferences.impl.DefaultPersistentModel
 import org.eclipse.buildship.core.util.gradle.GradleDistribution
 import org.eclipse.buildship.core.workspace.WorkspaceOperations
-import org.eclipse.buildship.core.workspace.internal.PersistentModelBuilder
+import org.eclipse.buildship.core.workspace.impl.PersistentModelBuilder
 
 /**
  * Base Spock test specification to verify Buildship functionality against the current state of the

@@ -25,29 +25,29 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 
 import org.eclipse.buildship.core.configuration.ConfigurationManager;
-import org.eclipse.buildship.core.configuration.internal.DefaultConfigurationManager;
+import org.eclipse.buildship.core.configuration.impl.DefaultConfigurationManager;
 import org.eclipse.buildship.core.console.ProcessStreamsProvider;
-import org.eclipse.buildship.core.console.internal.StdProcessStreamsProvider;
+import org.eclipse.buildship.core.console.impl.StdProcessStreamsProvider;
 import org.eclipse.buildship.core.event.ListenerRegistry;
-import org.eclipse.buildship.core.event.internal.DefaultListenerRegistry;
+import org.eclipse.buildship.core.event.impl.DefaultListenerRegistry;
 import org.eclipse.buildship.core.invocation.InvocationCustomizer;
 import org.eclipse.buildship.core.launch.ExternalLaunchConfigurationManager;
 import org.eclipse.buildship.core.launch.GradleLaunchConfigurationManager;
-import org.eclipse.buildship.core.launch.internal.DefaultExternalLaunchConfigurationManager;
-import org.eclipse.buildship.core.launch.internal.DefaultGradleLaunchConfigurationManager;
+import org.eclipse.buildship.core.launch.impl.DefaultExternalLaunchConfigurationManager;
+import org.eclipse.buildship.core.launch.impl.DefaultGradleLaunchConfigurationManager;
 import org.eclipse.buildship.core.operation.ToolingApiOperationManager;
-import org.eclipse.buildship.core.operation.internal.DefaultToolingApiOperationManager;
+import org.eclipse.buildship.core.operation.impl.DefaultToolingApiOperationManager;
 import org.eclipse.buildship.core.preferences.ModelPersistence;
-import org.eclipse.buildship.core.preferences.internal.DefaultModelPersistence;
+import org.eclipse.buildship.core.preferences.impl.DefaultModelPersistence;
 import org.eclipse.buildship.core.util.extension.InvocationCustomizerCollector;
 import org.eclipse.buildship.core.util.gradle.PublishedGradleVersionsWrapper;
 import org.eclipse.buildship.core.util.logging.EclipseLogger;
 import org.eclipse.buildship.core.workspace.GradleWorkspaceManager;
 import org.eclipse.buildship.core.workspace.WorkspaceOperations;
-import org.eclipse.buildship.core.workspace.internal.DefaultGradleWorkspaceManager;
-import org.eclipse.buildship.core.workspace.internal.DefaultWorkspaceOperations;
-import org.eclipse.buildship.core.workspace.internal.ProjectChangeListener;
-import org.eclipse.buildship.core.workspace.internal.SynchronizingBuildScriptUpdateListener;
+import org.eclipse.buildship.core.workspace.impl.DefaultGradleWorkspaceManager;
+import org.eclipse.buildship.core.workspace.impl.DefaultWorkspaceOperations;
+import org.eclipse.buildship.core.workspace.impl.ProjectChangeListener;
+import org.eclipse.buildship.core.workspace.impl.SynchronizingBuildScriptUpdateListener;
 
 /**
  * The plug-in runtime class for the Gradle integration plugin containing the non-UI elements.

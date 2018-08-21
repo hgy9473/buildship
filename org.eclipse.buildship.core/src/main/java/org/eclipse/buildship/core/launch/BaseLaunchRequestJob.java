@@ -25,8 +25,8 @@ import org.eclipse.buildship.core.configuration.RunConfiguration;
 import org.eclipse.buildship.core.console.ProcessDescription;
 import org.eclipse.buildship.core.event.Event;
 import org.eclipse.buildship.core.gradle.GradleProgressAttributes;
-import org.eclipse.buildship.core.launch.internal.BuildExecutionParticipants;
-import org.eclipse.buildship.core.launch.internal.DefaultExecuteLaunchRequestEvent;
+import org.eclipse.buildship.core.launch.impl.BuildExecutionParticipants;
+import org.eclipse.buildship.core.launch.impl.DefaultExecuteLaunchRequestEvent;
 import org.eclipse.buildship.core.operation.ToolingApiJob;
 import org.eclipse.buildship.core.workspace.GradleBuild;
 

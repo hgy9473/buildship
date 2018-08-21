@@ -14,7 +14,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 
 import org.eclipse.buildship.core.CorePlugin;
-import org.eclipse.buildship.core.marker.internal.ErrorMarkerLocation;
+import org.eclipse.buildship.core.marker.impl.ErrorMarkerLocation;
 import org.eclipse.buildship.core.operation.ToolingApiStatus;
 import org.eclipse.buildship.core.workspace.GradleBuild;
 

@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.buildship.core.CorePlugin;
 import org.eclipse.buildship.core.GradlePluginsRuntimeException;
 import org.eclipse.buildship.core.UnsupportedConfigurationException;
-import org.eclipse.buildship.core.workspace.internal.ImportRootProjectOperation.ImportRootProjectException;
+import org.eclipse.buildship.core.workspace.impl.ImportRootProjectOperation.ImportRootProjectException;
 
 /**
  * Custom {@link IStatus} implementation to represent Gradle-related statuses.
