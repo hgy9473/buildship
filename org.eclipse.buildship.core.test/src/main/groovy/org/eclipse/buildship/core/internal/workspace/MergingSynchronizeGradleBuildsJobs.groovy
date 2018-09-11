@@ -1,5 +1,7 @@
 package org.eclipse.buildship.core.internal.workspace
 
+import org.eclipse.buildship.core.GradleCore
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.test.fixtures.ProjectSynchronizationSpecification
 import org.eclipse.buildship.core.internal.workspace.DefaultGradleBuild
 import org.eclipse.buildship.core.internal.workspace.NewProjectHandler
@@ -13,8 +15,9 @@ class MergingSynchronizeGradleBuildsJobs extends ProjectSynchronizationSpecifica
             file 'settings.gradle'
         }
 
-        def buildConfiguration = createOverridingBuildConfiguration(projectLocation)
-        def gradleBuild = new DefaultGradleBuild(buildConfiguration)
+        def buildConfiguration = BuildConfiguration.forRootProjectDirectory(projectLocation).overrideWorkspaceConfiguration(true).build()
+        def gradleBuild = GradleCore.workspace.createBuild(buildConfiguration)
+
         def jobs = [
             new SynchronizationJob(NewProjectHandler.IMPORT_AND_MERGE, gradleBuild),
             new SynchronizationJob(NewProjectHandler.IMPORT_AND_MERGE, gradleBuild),
@@ -33,8 +36,8 @@ class MergingSynchronizeGradleBuildsJobs extends ProjectSynchronizationSpecifica
         File projectLocation = dir("sample-project") {
             file 'settings.gradle'
         }
-        def buildConfiguration = createOverridingBuildConfiguration(projectLocation)
-        def gradleBuild = new DefaultGradleBuild(buildConfiguration)
+        def buildConfiguration = BuildConfiguration.forRootProjectDirectory(projectLocation).overrideWorkspaceConfiguration(true).build()
+        def gradleBuild = GradleCore.workspace.createBuild(buildConfiguration)
         def jobs = [
             new SynchronizationJob(NewProjectHandler.IMPORT_AND_MERGE, gradleBuild),
             new SynchronizationJob(NewProjectHandler.NO_OP, gradleBuild),
@@ -53,8 +56,8 @@ class MergingSynchronizeGradleBuildsJobs extends ProjectSynchronizationSpecifica
         File projectLocation = dir("sample-project") {
             file 'settings.gradle'
         }
-        def buildConfiguration = createOverridingBuildConfiguration(projectLocation)
-        def gradleBuild = new DefaultGradleBuild(buildConfiguration)
+        def buildConfiguration = BuildConfiguration.forRootProjectDirectory(projectLocation).overrideWorkspaceConfiguration(true).build()
+        def gradleBuild = GradleCore.workspace.createBuild(buildConfiguration)
         def jobs = [
             new SynchronizationJob(NewProjectHandler.IMPORT_AND_MERGE, gradleBuild),
             new SynchronizationJob(Mock(NewProjectHandler), gradleBuild),
@@ -72,10 +75,10 @@ class MergingSynchronizeGradleBuildsJobs extends ProjectSynchronizationSpecifica
         setup:
         File project1 = dir("project1")
         File project2 = dir("project2")
-        def buildConfiguration1 = createOverridingBuildConfiguration(project1)
-        def gradleBuild1 = new DefaultGradleBuild(buildConfiguration1)
-        def buildConfiguration2 = createOverridingBuildConfiguration(project2)
-        def gradleBuild2 = new DefaultGradleBuild(buildConfiguration2)
+        def buildConfiguration1 = BuildConfiguration.forRootProjectDirectory(project1).overrideWorkspaceConfiguration(true).build()
+        def gradleBuild1 = GradleCore.workspace.createBuild(buildConfiguration1)
+        def buildConfiguration2 = BuildConfiguration.forRootProjectDirectory(project2).overrideWorkspaceConfiguration(true).build()
+        def gradleBuild2 = GradleCore.workspace.createBuild(buildConfiguration2)
         def jobs = [
             new SynchronizationJob(NewProjectHandler.NO_OP, gradleBuild1),
             new SynchronizationJob(NewProjectHandler.NO_OP, gradleBuild2),

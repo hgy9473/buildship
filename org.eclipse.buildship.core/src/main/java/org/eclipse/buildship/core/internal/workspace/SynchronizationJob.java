@@ -21,7 +21,9 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 
+import org.eclipse.buildship.core.GradleBuild;
 import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.internal.DefaultGradleBuild;
 import org.eclipse.buildship.core.internal.operation.ToolingApiJob;
 
 /**
@@ -36,6 +38,10 @@ public class SynchronizationJob extends ToolingApiJob<Void> {
 
     public SynchronizationJob(GradleBuild gradleBuild) {
         this(NewProjectHandler.NO_OP, ImmutableList.of(gradleBuild));
+    }
+
+    public SynchronizationJob(Iterable<GradleBuild> gradleBuilds) {
+        this(NewProjectHandler.NO_OP, gradleBuilds);
     }
 
     public SynchronizationJob(NewProjectHandler newProjectHandler, GradleBuild gradleBuild) {
@@ -62,12 +68,11 @@ public class SynchronizationJob extends ToolingApiJob<Void> {
     @Override
     public Void runInToolingApi(CancellationTokenSource tokenSource, IProgressMonitor monitor) throws Exception {
         final SubMonitor progress = SubMonitor.convert(monitor, ImmutableSet.copyOf(SynchronizationJob.this.gradleBuilds).size() + 1);
-
         for (GradleBuild build : SynchronizationJob.this.gradleBuilds) {
             if (monitor.isCanceled()) {
                 throw new OperationCanceledException();
             }
-            build.synchronize(SynchronizationJob.this.newProjectHandler, tokenSource, progress.newChild(1));
+            ((DefaultGradleBuild)build).synchronize(SynchronizationJob.this.newProjectHandler, progress.newChild(1));
         }
 
         return null;

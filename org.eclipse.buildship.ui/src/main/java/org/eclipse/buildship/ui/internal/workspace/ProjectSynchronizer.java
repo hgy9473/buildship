@@ -14,7 +14,10 @@
 package org.eclipse.buildship.ui.internal.workspace;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -30,10 +33,9 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
 
-import org.eclipse.buildship.core.internal.CorePlugin;
+import org.eclipse.buildship.core.GradleBuild;
+import org.eclipse.buildship.core.GradleCore;
 import org.eclipse.buildship.core.internal.util.collections.AdapterFunction;
-import org.eclipse.buildship.core.internal.workspace.GradleBuilds;
-import org.eclipse.buildship.core.internal.workspace.NewProjectHandler;
 import org.eclipse.buildship.core.internal.workspace.SynchronizationJob;
 
 /**
@@ -46,13 +48,13 @@ public final class ProjectSynchronizer {
 
     public static void execute(final ExecutionEvent event) {
         Set<IProject> selectedProjects = collectSelectedProjects(event);
-        if (selectedProjects.isEmpty()) {
-            return;
-        }
+        List<GradleBuild> gradleBuilds = selectedProjects.stream()
+            .flatMap(p -> {
+                Optional<GradleBuild> build = GradleCore.getWorkspace().getBuild(p);
+                return build.isPresent() ? Stream.of(build.get()) : Stream.empty(); })
+            .collect(Collectors.toList());
 
-        final GradleBuilds gradleBuilds = CorePlugin.gradleWorkspaceManager().getGradleBuilds(selectedProjects);
-
-        new SynchronizationJob(NewProjectHandler.IMPORT_AND_MERGE, gradleBuilds).schedule();
+        new SynchronizationJob(gradleBuilds).schedule();
     }
 
     private static Set<IProject> collectSelectedProjects(ExecutionEvent event) {

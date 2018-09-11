@@ -45,9 +45,13 @@ public final class DefaultGradleBuild implements GradleBuild {
 
     @Override
     public SynchronizationResult synchronize(IProgressMonitor monitor) {
+        return synchronize(NewProjectHandler.IMPORT_AND_MERGE, monitor);
+    }
+
+    public SynchronizationResult synchronize(NewProjectHandler newProjectHandler, IProgressMonitor monitor) {
         if (this.gradleBuild != null) {
             try {
-                this.gradleBuild.synchronize(NewProjectHandler.IMPORT_AND_MERGE, this.tokenSource, monitor);
+                this.gradleBuild.synchronize(newProjectHandler, this.tokenSource, monitor);
             } catch (final CoreException e) {
                 return newSynchronizationResult(e.getStatus());
             }

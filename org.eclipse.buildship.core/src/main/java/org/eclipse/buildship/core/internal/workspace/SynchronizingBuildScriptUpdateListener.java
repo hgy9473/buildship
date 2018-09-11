@@ -8,6 +8,7 @@
 
 package org.eclipse.buildship.core.internal.workspace;
 
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -25,6 +26,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import org.eclipse.buildship.core.GradleBuild;
+import org.eclipse.buildship.core.GradleCore;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
 import org.eclipse.buildship.core.internal.configuration.ProjectConfiguration;
@@ -90,8 +93,8 @@ public final class SynchronizingBuildScriptUpdateListener implements IResourceCh
 
     private void executeSyncIfBuildScriptChanged(final IProject project, IResourceDelta delta) {
         if (hasBuildScriptFileChanged(project, delta.getAffectedChildren())) {
-            GradleBuild gradleBuild = CorePlugin.gradleWorkspaceManager().getGradleBuild(project).get();
-            SynchronizationJob job = new SynchronizationJob(gradleBuild);
+            Optional<GradleBuild> build = GradleCore.getWorkspace().getBuild(project);
+            SynchronizationJob job = new SynchronizationJob(build.get());
             job.setResultHandler(new ResultHander());
             job.schedule();
         }

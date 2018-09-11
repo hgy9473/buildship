@@ -11,7 +11,7 @@
 
 package org.eclipse.buildship.core.internal.workspace;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -20,6 +20,8 @@ import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 
+import org.eclipse.buildship.core.GradleBuild;
+import org.eclipse.buildship.core.GradleCore;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.operation.ToolingApiJobResultHandler;
 import org.eclipse.buildship.core.internal.operation.ToolingApiStatus;
@@ -50,7 +52,7 @@ public final class GradleClasspathContainerInitializer extends ClasspathContaine
         boolean updatedFromStorage = updateFromStorage(javaProject);
 
         if (!updatedFromStorage) {
-            Optional<GradleBuild> gradleBuild = CorePlugin.gradleWorkspaceManager().getGradleBuild(project);
+            Optional<GradleBuild> gradleBuild = GradleCore.getWorkspace().getBuild(project);
             if (!gradleBuild.isPresent()) {
                 GradleClasspathContainerUpdater.clear(javaProject, null);
             } else {
