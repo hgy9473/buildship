@@ -6,9 +6,10 @@ import spock.lang.Subject
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
 
+import org.eclipse.buildship.core.GradleDistribution
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.CorePlugin
 import org.eclipse.buildship.core.internal.test.fixtures.WorkspaceSpecification
-import org.eclipse.buildship.core.GradleDistribution
 
 class BuildConfigurationPersistenceTest extends WorkspaceSpecification {
 
@@ -52,7 +53,7 @@ class BuildConfigurationPersistenceTest extends WorkspaceSpecification {
 
     def "can save and read preferences for workspace project"() {
         setup:
-        DefaultBuildConfigurationProperties properties = validProperties(project)
+        BuildConfiguration properties = validProperties(project)
         persistence.saveBuildConfiguration(project, properties)
 
         expect:
@@ -61,7 +62,7 @@ class BuildConfigurationPersistenceTest extends WorkspaceSpecification {
 
     def "can save and read preferences for external project"() {
         setup:
-        DefaultBuildConfigurationProperties properties = validProperties(projectDir)
+        BuildConfiguration properties = validProperties(projectDir)
         persistence.saveBuildConfiguration(projectDir, properties)
 
         expect:
@@ -84,13 +85,13 @@ class BuildConfigurationPersistenceTest extends WorkspaceSpecification {
 
     def "Reading nonexisting build configuration returns default"() {
         when:
-        DefaultBuildConfigurationProperties properties = persistence.readBuildConfiguratonProperties(project)
+        BuildConfiguration properties = persistence.readBuildConfiguratonProperties(project)
 
         then:
         properties.rootProjectDirectory == project.location.toFile()
-        properties.overrideWorkspaceSettings == false
+        properties.overrideWorkspaceConfiguration == false
         properties.gradleDistribution == GradleDistribution.fromBuild()
-        properties.gradleUserHome == null
+        properties.gradleUserHome == Optional.empty()
         properties.buildScansEnabled == false
         properties.offlineMode == false
         properties.autoSync == false
@@ -99,10 +100,10 @@ class BuildConfigurationPersistenceTest extends WorkspaceSpecification {
         properties = persistence.readBuildConfiguratonProperties(projectDir)
 
         then:
-        properties.rootProjectDirectory == projectDir.canonicalFile
-        properties.overrideWorkspaceSettings == false
+        properties.rootProjectDirectory == projectDir
+        properties.overrideWorkspaceConfiguration == false
         properties.gradleDistribution == GradleDistribution.fromBuild()
-        properties.gradleUserHome == null
+        properties.gradleUserHome == Optional.empty()
         properties.buildScansEnabled == false
         properties.offlineMode == false
         properties.autoSync == false
@@ -117,12 +118,12 @@ connection.gradle.distribution=MODIFIED_DISTRIBUTION"""
         project.refreshLocal(IResource.DEPTH_INFINITE, null)
 
         when:
-        DefaultBuildConfigurationProperties properties = persistence.readBuildConfiguratonProperties(project)
+        BuildConfiguration properties = persistence.readBuildConfiguratonProperties(project)
 
         then:
-        properties.overrideWorkspaceSettings == false
+        properties.overrideWorkspaceConfiguration == false
         properties.gradleDistribution == GradleDistribution.fromBuild()
-        properties.gradleUserHome == null
+        properties.gradleUserHome == Optional.empty()
         properties.buildScansEnabled == false
         properties.offlineMode == false
         properties.autoSync == false
@@ -131,9 +132,9 @@ connection.gradle.distribution=MODIFIED_DISTRIBUTION"""
         properties = persistence.readBuildConfiguratonProperties(projectDir)
 
         then:
-        properties.overrideWorkspaceSettings == false
+        properties.overrideWorkspaceConfiguration == false
         properties.gradleDistribution == GradleDistribution.fromBuild()
-        properties.gradleUserHome == null
+        properties.gradleUserHome == Optional.empty()
         properties.buildScansEnabled == false
         properties.offlineMode == false
         properties.autoSync == false
@@ -141,25 +142,25 @@ connection.gradle.distribution=MODIFIED_DISTRIBUTION"""
 
     def "If workspace override is not set then overridden configuration properties are ignored"() {
         setup:
-        DefaultBuildConfigurationProperties properties = new DefaultBuildConfigurationProperties(projectDir, GradleDistribution.forVersion('2.0'), dir('gradle-user-home'), false, true, true, true)
+        BuildConfiguration properties = validProperties(projectDir, GradleDistribution.forVersion('2.0'), dir('gradle-user-home'), false, true, true, true)
         persistence.saveBuildConfiguration(project, properties)
         persistence.saveBuildConfiguration(projectDir, properties)
 
         when:
-        DefaultBuildConfigurationProperties importedProjectProperties = persistence.readBuildConfiguratonProperties(project)
-        DefaultBuildConfigurationProperties externalProjectProperties = persistence.readBuildConfiguratonProperties(projectDir)
+        BuildConfiguration importedProjectProperties = persistence.readBuildConfiguratonProperties(project)
+        BuildConfiguration externalProjectProperties = persistence.readBuildConfiguratonProperties(projectDir)
 
         then:
-        importedProjectProperties.overrideWorkspaceSettings == false
+        importedProjectProperties.overrideWorkspaceConfiguration == false
         importedProjectProperties.gradleDistribution == GradleDistribution.fromBuild()
-        importedProjectProperties.gradleUserHome == null
+        importedProjectProperties.gradleUserHome == Optional.empty()
         importedProjectProperties.buildScansEnabled == false
         importedProjectProperties.offlineMode == false
         importedProjectProperties.autoSync == false
 
-        externalProjectProperties.overrideWorkspaceSettings == false
+        externalProjectProperties.overrideWorkspaceConfiguration == false
         externalProjectProperties.gradleDistribution == GradleDistribution.fromBuild()
-        externalProjectProperties.gradleUserHome == null
+        externalProjectProperties.gradleUserHome == Optional.empty()
         externalProjectProperties.buildScansEnabled == false
         externalProjectProperties.offlineMode == false
         importedProjectProperties.autoSync == false
@@ -168,25 +169,25 @@ connection.gradle.distribution=MODIFIED_DISTRIBUTION"""
     def "If workspace override is set then overridden configuration properties are persisted"(GradleDistribution distribution, boolean buildScansEnabled, boolean offlineMode, boolean autoSync) {
         setup:
         File gradleUserHome = dir('gradle-user-home').canonicalFile
-        DefaultBuildConfigurationProperties properties = new DefaultBuildConfigurationProperties(projectDir, distribution, gradleUserHome, true, buildScansEnabled, offlineMode, autoSync)
+        BuildConfiguration properties = validProperties(projectDir, distribution, gradleUserHome, true, buildScansEnabled, offlineMode, autoSync)
         persistence.saveBuildConfiguration(project, properties)
         persistence.saveBuildConfiguration(projectDir, properties)
 
         when:
-        DefaultBuildConfigurationProperties importedProjectProperties = persistence.readBuildConfiguratonProperties(project)
-        DefaultBuildConfigurationProperties externalProjectProperties = persistence.readBuildConfiguratonProperties(projectDir)
+        BuildConfiguration importedProjectProperties = persistence.readBuildConfiguratonProperties(project)
+        BuildConfiguration externalProjectProperties = persistence.readBuildConfiguratonProperties(projectDir)
 
         then:
-        importedProjectProperties.overrideWorkspaceSettings == true
+        importedProjectProperties.overrideWorkspaceConfiguration == true
         importedProjectProperties.gradleDistribution == distribution
-        importedProjectProperties.gradleUserHome == gradleUserHome
+        importedProjectProperties.gradleUserHome == Optional.of(gradleUserHome)
         importedProjectProperties.buildScansEnabled == buildScansEnabled
         importedProjectProperties.offlineMode == offlineMode
         importedProjectProperties.autoSync == autoSync
 
-        externalProjectProperties.overrideWorkspaceSettings == true
+        externalProjectProperties.overrideWorkspaceConfiguration == true
         externalProjectProperties.gradleDistribution == distribution
-        externalProjectProperties.gradleUserHome == gradleUserHome
+        externalProjectProperties.gradleUserHome == Optional.of(gradleUserHome)
         externalProjectProperties.buildScansEnabled == buildScansEnabled
         externalProjectProperties.offlineMode == offlineMode
         externalProjectProperties.autoSync == autoSync
@@ -297,11 +298,24 @@ connection.gradle.distribution=MODIFIED_DISTRIBUTION"""
         thrown RuntimeException
     }
 
-    private DefaultBuildConfigurationProperties validProperties(IProject project) {
-        new DefaultBuildConfigurationProperties(project.getLocation().toFile(), GradleDistribution.fromBuild(), null, false, false, false, false)
+    private def validProperties(IProject project) {
+        validProperties(project.getLocation().toFile())
     }
 
-    private DefaultBuildConfigurationProperties validProperties(File projectDir) {
-        new DefaultBuildConfigurationProperties(projectDir, GradleDistribution.fromBuild(), null, false, false, false, false)
+    private def validProperties(File projectDir) {
+        BuildConfiguration
+                .forRootProjectDirectory(projectDir)
+                .build()
+    }
+
+    private def validProperties(File projectDir, GradleDistribution distribution, File gradleUserHome, boolean overrideWorkspaceSettings, boolean buildScansEnabled, boolean offlineMode, boolean autoSync) {
+        BuildConfiguration.forRootProjectDirectory(projectDir)
+                .gradleDistribution(distribution)
+                .gradleUserHome(gradleUserHome)
+                .overrideWorkspaceConfiguration(overrideWorkspaceSettings)
+                .buildScansEnabled(buildScansEnabled)
+                .offlineMode(offlineMode)
+                .autoSync(autoSync)
+                .build()
     }
 }

@@ -23,10 +23,10 @@ import org.eclipse.buildship.core.GradleDistribution;
 // TODO (donat) remove public modifier
 public final class DefaultBuildConfiguration implements BuildConfiguration {
 
-    private final DefaultBuildConfigurationProperties properties;
+    private final org.eclipse.buildship.core.configuration.BuildConfiguration properties;
     private final WorkspaceConfiguration workspaceConfiguration;
 
-    public DefaultBuildConfiguration(DefaultBuildConfigurationProperties persistentProperties, WorkspaceConfiguration workspaceConfiguration) {
+    public DefaultBuildConfiguration(org.eclipse.buildship.core.configuration.BuildConfiguration persistentProperties, WorkspaceConfiguration workspaceConfiguration) {
         this.properties = persistentProperties;
         this.workspaceConfiguration = workspaceConfiguration;
     }
@@ -43,13 +43,14 @@ public final class DefaultBuildConfiguration implements BuildConfiguration {
 
     @Override
     public boolean isOverrideWorkspaceSettings() {
-        return this.properties.isOverrideWorkspaceSettings();
+        return this.properties.isOverrideWorkspaceConfiguration();
     }
 
     @Override
     public File getGradleUserHome() {
-        if (this.properties.isOverrideWorkspaceSettings()) {
-            return this.properties.getGradleUserHome();
+        if (this.properties.isOverrideWorkspaceConfiguration()) {
+            return this.properties.getGradleUserHome().orElse(null)
+                    ;
         } else {
             return this.workspaceConfiguration.getGradleUserHome();
         }
@@ -57,7 +58,7 @@ public final class DefaultBuildConfiguration implements BuildConfiguration {
 
     @Override
     public GradleDistribution getGradleDistribution() {
-        if (this.properties.isOverrideWorkspaceSettings()) {
+        if (this.properties.isOverrideWorkspaceConfiguration()) {
             return this.properties.getGradleDistribution();
         } else {
             return this.workspaceConfiguration.getGradleDistribution();
@@ -66,7 +67,7 @@ public final class DefaultBuildConfiguration implements BuildConfiguration {
 
     @Override
     public boolean isBuildScansEnabled() {
-        if (this.properties.isOverrideWorkspaceSettings()) {
+        if (this.properties.isOverrideWorkspaceConfiguration()) {
             return this.properties.isBuildScansEnabled();
         } else {
             return this.workspaceConfiguration.isBuildScansEnabled();
@@ -75,7 +76,7 @@ public final class DefaultBuildConfiguration implements BuildConfiguration {
 
     @Override
     public boolean isOfflineMode() {
-        if (this.properties.isOverrideWorkspaceSettings()) {
+        if (this.properties.isOverrideWorkspaceConfiguration()) {
             return this.properties.isOfflineMode();
         } else {
             return this.workspaceConfiguration.isOffline();
@@ -98,7 +99,7 @@ public final class DefaultBuildConfiguration implements BuildConfiguration {
                 this.workspaceConfiguration);
     }
 
-    public DefaultBuildConfigurationProperties getProperties() {
+    public org.eclipse.buildship.core.configuration.BuildConfiguration getProperties() {
         return this.properties;
     }
 
@@ -116,7 +117,7 @@ public final class DefaultBuildConfiguration implements BuildConfiguration {
 
     @Override
     public boolean isAutoSync() {
-        if (this.properties.isOverrideWorkspaceSettings()) {
+        if (this.properties.isOverrideWorkspaceConfiguration()) {
             return this.properties.isAutoSync();
         } else {
             return this.workspaceConfiguration.isAutoSync();

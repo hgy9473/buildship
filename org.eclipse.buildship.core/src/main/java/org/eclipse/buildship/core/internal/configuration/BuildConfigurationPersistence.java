@@ -9,6 +9,7 @@
 package org.eclipse.buildship.core.internal.configuration;
 
 import java.io.File;
+import java.util.Optional;
 
 import com.google.common.base.Preconditions;
 
@@ -16,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.buildship.core.GradleDistribution;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
 
@@ -36,26 +38,26 @@ final class BuildConfigurationPersistence {
     private static final String PREF_KEY_OFFLINE_MODE = "offline.mode";
     private static final String PREF_KEY_AUTO_SYNC = "auto.sync";
 
-    public DefaultBuildConfigurationProperties readBuildConfiguratonProperties(IProject project) {
+    public BuildConfiguration readBuildConfiguratonProperties(IProject project) {
         Preconditions.checkNotNull(project);
         PreferenceStore preferences = PreferenceStore.forProjectScope(project, PREF_NODE);
         return readPreferences(preferences, project.getLocation().toFile());
     }
 
-    public DefaultBuildConfigurationProperties readBuildConfiguratonProperties(File projectDir) {
+    public BuildConfiguration readBuildConfiguratonProperties(File projectDir) {
         Preconditions.checkNotNull(projectDir);
         PreferenceStore preferences = PreferenceStore.forPreferenceFile(getProjectPrefsFile(projectDir, PREF_NODE));
         return readPreferences(preferences, projectDir);
     }
 
-    public void saveBuildConfiguration(IProject project, DefaultBuildConfigurationProperties properties) {
+    public void saveBuildConfiguration(IProject project, BuildConfiguration properties) {
         Preconditions.checkNotNull(project);
         Preconditions.checkNotNull(properties);
         PreferenceStore preferences = PreferenceStore.forProjectScope(project, PREF_NODE);
         savePreferences(properties, preferences);
     }
 
-    public void saveBuildConfiguration(File projectDir, DefaultBuildConfigurationProperties properties) {
+    public void saveBuildConfiguration(File projectDir, BuildConfiguration properties) {
         Preconditions.checkNotNull(projectDir);
         Preconditions.checkNotNull(properties);
         PreferenceStore preferences = PreferenceStore.forPreferenceFile(getProjectPrefsFile(projectDir, PREF_NODE));
@@ -109,7 +111,7 @@ final class BuildConfigurationPersistence {
         deleteRootDirPreference(preferences);
     }
 
-    private static DefaultBuildConfigurationProperties readPreferences(PreferenceStore preferences, File rootDir) {
+    private static BuildConfiguration readPreferences(PreferenceStore preferences, File rootDir) {
         boolean overrideWorkspaceSettings = preferences.readBoolean(PREF_KEY_OVERRIDE_WORKSPACE_SETTINGS, false);
 
         String distributionString = preferences.readString(PREF_KEY_CONNECTION_GRADLE_DISTRIBUTION, null);
@@ -129,16 +131,22 @@ final class BuildConfigurationPersistence {
         boolean offlineMode = preferences.readBoolean(PREF_KEY_OFFLINE_MODE, false);
         boolean autoSync = preferences.readBoolean(PREF_KEY_AUTO_SYNC, false);
 
-        return new DefaultBuildConfigurationProperties(rootDir, distribution, gradleUserHome, overrideWorkspaceSettings, buildScansEnabled, offlineMode, autoSync);
+        return BuildConfiguration.forRootProjectDirectory(rootDir)
+                .gradleDistribution(distribution)
+                .gradleUserHome(gradleUserHome)
+                .overrideWorkspaceConfiguration(overrideWorkspaceSettings)
+                .buildScansEnabled(buildScansEnabled)
+                .offlineMode(offlineMode)
+                .autoSync(autoSync)
+                .build();
     }
 
-    private static void savePreferences(DefaultBuildConfigurationProperties properties, PreferenceStore preferences) {
-        if (properties.isOverrideWorkspaceSettings()) {
-
+    private static void savePreferences(BuildConfiguration properties, PreferenceStore preferences) {
+        if (properties.isOverrideWorkspaceConfiguration()) {
             String gradleDistribution = properties.getGradleDistribution().toString();
             preferences.write(PREF_KEY_CONNECTION_GRADLE_DISTRIBUTION, gradleDistribution);
             preferences.write(PREF_KEY_GRADLE_USER_HOME, toPortableString(properties.getGradleUserHome()));
-            preferences.writeBoolean(PREF_KEY_OVERRIDE_WORKSPACE_SETTINGS, properties.isOverrideWorkspaceSettings());
+            preferences.writeBoolean(PREF_KEY_OVERRIDE_WORKSPACE_SETTINGS, properties.isOverrideWorkspaceConfiguration());
             preferences.writeBoolean(PREF_KEY_BUILD_SCANS_ENABLED, properties.isBuildScansEnabled());
             preferences.writeBoolean(PREF_KEY_OFFLINE_MODE, properties.isOfflineMode());
             preferences.writeBoolean(PREF_KEY_AUTO_SYNC, properties.isAutoSync());
@@ -153,8 +161,8 @@ final class BuildConfigurationPersistence {
         preferences.flush();
     }
 
-    private static String toPortableString(File file) {
-        return file == null ? "" : new Path(file.getPath()).toPortableString();
+    private static String toPortableString(Optional<File> file) {
+        return file.map(f -> new Path(f.getPath()).toPortableString()).orElse("");
     }
 
     private static File getProjectPrefsFile(File projectDir, String node) {

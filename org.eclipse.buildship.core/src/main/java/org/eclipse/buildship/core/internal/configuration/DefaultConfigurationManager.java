@@ -21,10 +21,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 
+import org.eclipse.buildship.core.GradleDistribution;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
 import org.eclipse.buildship.core.internal.util.file.RelativePathUtils;
-import org.eclipse.buildship.core.GradleDistribution;
 
 /**
  * Default implementation for {@link ConfigurationManager}.
@@ -47,14 +47,17 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     @Override
     public BuildConfiguration createBuildConfiguration(File rootProjectDirectory, boolean overrideWorkspaceSettings, GradleDistribution gradleDistribution, File gradleUserHome,
             boolean buildScansEnabled, boolean offlineMode, boolean autoSync) {
-        DefaultBuildConfigurationProperties persistentBuildConfigProperties = new DefaultBuildConfigurationProperties(rootProjectDirectory,
-                                                                                                        gradleDistribution,
-                                                                                                        gradleUserHome,
-                                                                                                        overrideWorkspaceSettings,
-                                                                                                        buildScansEnabled,
-                                                                                                        offlineMode,
-                                                                                                        autoSync);
-        return new DefaultBuildConfiguration(persistentBuildConfigProperties, loadWorkspaceConfiguration());
+            org.eclipse.buildship.core.configuration.BuildConfiguration properties =
+                org.eclipse.buildship.core.configuration.BuildConfiguration
+                    .forRootProjectDirectory(rootProjectDirectory)
+                    .gradleDistribution(gradleDistribution)
+                    .gradleUserHome(gradleUserHome)
+                    .overrideWorkspaceConfiguration(overrideWorkspaceSettings)
+                    .buildScansEnabled(buildScansEnabled)
+                    .offlineMode(offlineMode)
+                    .autoSync(autoSync)
+                    .build();
+        return new DefaultBuildConfiguration(properties, loadWorkspaceConfiguration());
     }
 
     @Override
@@ -62,7 +65,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
         Preconditions.checkNotNull(rootDir);
         Preconditions.checkArgument(rootDir.exists());
         Optional<IProject> projectCandidate = CorePlugin.workspaceOperations().findProjectByLocation(rootDir);
-        DefaultBuildConfigurationProperties buildConfigProperties;
+        org.eclipse.buildship.core.configuration.BuildConfiguration buildConfigProperties;
         if (projectCandidate.isPresent() && projectCandidate.get().isAccessible()) {
             IProject project = projectCandidate.get();
             try {
@@ -83,7 +86,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     @Override
     public void saveBuildConfiguration(BuildConfiguration configuration) {
         Preconditions.checkArgument(configuration instanceof DefaultBuildConfiguration, "Unknow configuration type: ", configuration.getClass());
-        DefaultBuildConfigurationProperties properties = ((DefaultBuildConfiguration)configuration).getProperties();
+        org.eclipse.buildship.core.configuration.BuildConfiguration properties = ((DefaultBuildConfiguration)configuration).getProperties();
         File rootDir = configuration.getRootProjectDirectory();
         Optional<IProject> rootProject = CorePlugin.workspaceOperations().findProjectByLocation(rootDir);
         if (rootProject.isPresent() && rootProject.get().isAccessible()) {
@@ -157,14 +160,15 @@ public class DefaultConfigurationManager implements ConfigurationManager {
             projectConfiguration = loadProjectConfiguration(attributes.getWorkingDir());
         } catch (Exception e) {
             CorePlugin.logger().debug("Can't load build config from " + attributes.getWorkingDir(), e);
-            DefaultBuildConfigurationProperties buildConfigProperties = new DefaultBuildConfigurationProperties(attributes.getWorkingDir(),
-                    attributes.getGradleDistribution(),
-                    attributes.getGradleUserHome(),
-                    attributes.isOverrideBuildSettings(),
-                    attributes.isBuildScansEnabled(),
-                    attributes.isOffline(),
-                    false);
-            BuildConfiguration buildConfiguration = new DefaultBuildConfiguration(buildConfigProperties, loadWorkspaceConfiguration());
+            org.eclipse.buildship.core.configuration.BuildConfiguration configuration = org.eclipse.buildship.core.configuration.BuildConfiguration
+                    .forRootProjectDirectory(attributes.getWorkingDir())
+                    .gradleDistribution(attributes.getGradleDistribution())
+                    .gradleUserHome(attributes.getGradleUserHome())
+                    .overrideWorkspaceConfiguration(attributes.isOverrideBuildSettings())
+                    .buildScansEnabled(attributes.isBuildScansEnabled())
+                    .offlineMode(attributes.isOffline())
+                    .build();
+            BuildConfiguration buildConfiguration = new DefaultBuildConfiguration(configuration, loadWorkspaceConfiguration());
             projectConfiguration = new DefaultProjectConfiguration(canonicalize(attributes.getWorkingDir()), buildConfiguration);
         }
         RunConfigurationProperties runConfigProperties = new RunConfigurationProperties(attributes.getTasks(),

@@ -45,6 +45,68 @@ public final class BuildConfiguration {
         this.autoSync = builder.autoSync;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (this.autoSync ? 1231 : 1237);
+        result = prime * result + (this.buildScansEnabled ? 1231 : 1237);
+        result = prime * result + ((this.gradleDistribution == null) ? 0 : this.gradleDistribution.hashCode());
+        result = prime * result + ((this.gradleUserHome == null) ? 0 : this.gradleUserHome.hashCode());
+        result = prime * result + (this.offlineMode ? 1231 : 1237);
+        result = prime * result + (this.overrideWorkspaceConfiguration ? 1231 : 1237);
+        result = prime * result + ((this.rootProjectDirectory == null) ? 0 : this.rootProjectDirectory.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        BuildConfiguration other = (BuildConfiguration) obj;
+        if (this.autoSync != other.autoSync) {
+            return false;
+        }
+        if (this.buildScansEnabled != other.buildScansEnabled) {
+            return false;
+        }
+        if (this.gradleDistribution == null) {
+            if (other.gradleDistribution != null) {
+                return false;
+            }
+        } else if (!this.gradleDistribution.equals(other.gradleDistribution)) {
+            return false;
+        }
+        if (this.gradleUserHome == null) {
+            if (other.gradleUserHome != null) {
+                return false;
+            }
+        } else if (!this.gradleUserHome.equals(other.gradleUserHome)) {
+            return false;
+        }
+        if (this.offlineMode != other.offlineMode) {
+            return false;
+        }
+        if (this.overrideWorkspaceConfiguration != other.overrideWorkspaceConfiguration) {
+            return false;
+        }
+        if (this.rootProjectDirectory == null) {
+            if (other.rootProjectDirectory != null) {
+                return false;
+            }
+        } else if (!this.rootProjectDirectory.equals(other.rootProjectDirectory)) {
+            return false;
+        }
+        return true;
+    }
+
     public static BuildConfigurationBuilder forRootProjectDirectory(File rootProjectDirectory) {
         return new BuildConfigurationBuilder(rootProjectDirectory);
     }
