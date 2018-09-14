@@ -64,7 +64,7 @@ public final class DefaultWorkspaceOperations implements WorkspaceOperations {
     }
 
     @Override
-    public Optional<IProject> findProjectByLocation(final File directory) {
+    public Optional<IProject> findProjectByLocation(File directory) {
         return FluentIterable.from(getAllProjects()).firstMatch(new Predicate<IProject>() {
 
             @Override

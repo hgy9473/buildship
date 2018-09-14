@@ -33,12 +33,12 @@ import org.eclipse.jdt.core.JavaCore
 import org.eclipse.ui.IWorkbenchWindow
 import org.eclipse.ui.PlatformUI
 
+import org.eclipse.buildship.core.GradleDistribution
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.CorePlugin
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.configuration.ConfigurationManager
 import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationDelegate
 import org.eclipse.buildship.core.internal.marker.GradleErrorMarker
-import org.eclipse.buildship.core.GradleDistribution
 import org.eclipse.buildship.core.internal.workspace.WorkspaceOperations
 import org.eclipse.buildship.ui.internal.view.execution.ExecutionsView
 
@@ -191,13 +191,19 @@ abstract class WorkspaceSpecification extends Specification {
     }
 
     protected BuildConfiguration createInheritingBuildConfiguration(File projectDir) {
-        configurationManager.createBuildConfiguration(projectDir, false, GradleDistribution.fromBuild(), null, false, false, false)
+        BuildConfiguration.forRootProjectDirectory(projectDir).build()
     }
 
     protected BuildConfiguration createOverridingBuildConfiguration(File projectDir, GradleDistribution distribution = GradleDistribution.fromBuild(),
-                                                                    boolean buildScansEnabled = false, boolean offlineMode = false,
-                                                                    boolean autoSync = false, File gradleUserHome = null) {
-        configurationManager.createBuildConfiguration(projectDir, true, distribution, gradleUserHome, buildScansEnabled, offlineMode, autoSync)
+                                                                  boolean buildScansEnabled = false, boolean offlineMode = false, boolean autoSync = false, File gradleUserHome = null) {
+        BuildConfiguration.forRootProjectDirectory(projectDir)
+                .overrideWorkspaceConfiguration(true)
+                .gradleDistribution(distribution)
+                .gradleUserHome(gradleUserHome)
+                .buildScansEnabled(buildScansEnabled)
+                .offlineMode(offlineMode)
+                .autoSync(autoSync)
+                .build()
     }
 
     protected void waitFor(int timeout = 5000, Closure condition) {

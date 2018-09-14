@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 
 import org.eclipse.buildship.core.GradleDistribution;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
 import org.eclipse.buildship.core.internal.util.file.RelativePathUtils;
@@ -45,54 +46,42 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     }
 
     @Override
-    public BuildConfiguration createBuildConfiguration(File rootProjectDirectory, boolean overrideWorkspaceSettings, GradleDistribution gradleDistribution, File gradleUserHome,
-            boolean buildScansEnabled, boolean offlineMode, boolean autoSync) {
-            org.eclipse.buildship.core.configuration.BuildConfiguration properties =
-                org.eclipse.buildship.core.configuration.BuildConfiguration
-                    .forRootProjectDirectory(rootProjectDirectory)
-                    .gradleDistribution(gradleDistribution)
-                    .gradleUserHome(gradleUserHome)
-                    .overrideWorkspaceConfiguration(overrideWorkspaceSettings)
-                    .buildScansEnabled(buildScansEnabled)
-                    .offlineMode(offlineMode)
-                    .autoSync(autoSync)
-                    .build();
-        return new DefaultBuildConfiguration(properties, loadWorkspaceConfiguration());
-    }
-
-    @Override
     public BuildConfiguration loadBuildConfiguration(File rootDir) {
         Preconditions.checkNotNull(rootDir);
         Preconditions.checkArgument(rootDir.exists());
         Optional<IProject> projectCandidate = CorePlugin.workspaceOperations().findProjectByLocation(rootDir);
-        org.eclipse.buildship.core.configuration.BuildConfiguration buildConfigProperties;
         if (projectCandidate.isPresent() && projectCandidate.get().isAccessible()) {
             IProject project = projectCandidate.get();
             try {
-                buildConfigProperties = this.buildConfigurationPersistence.readBuildConfiguratonProperties(project);
+                return this.buildConfigurationPersistence.readBuildConfiguratonProperties(project);
             } catch (Exception e) {
                 // when the project is being imported, the configuration file might not be visible from the
                 // Eclipse resource API; in that case we fall back to raw IO operations
                 // a similar approach is used in JDT core to load the .classpath file
                 // see org.eclipse.jdt.internal.core.JavaProject.readFileEntriesWithException(Map)
-                buildConfigProperties = this.buildConfigurationPersistence.readBuildConfiguratonProperties(project.getLocation().toFile());
+                return this.buildConfigurationPersistence.readBuildConfiguratonProperties(project.getLocation().toFile());
             }
         } else {
-            buildConfigProperties = this.buildConfigurationPersistence.readBuildConfiguratonProperties(rootDir);
+            return this.buildConfigurationPersistence.readBuildConfiguratonProperties(rootDir);
         }
-        return new DefaultBuildConfiguration(buildConfigProperties, loadWorkspaceConfiguration());
     }
 
     @Override
     public void saveBuildConfiguration(BuildConfiguration configuration) {
-        Preconditions.checkArgument(configuration instanceof DefaultBuildConfiguration, "Unknow configuration type: ", configuration.getClass());
-        org.eclipse.buildship.core.configuration.BuildConfiguration properties = ((DefaultBuildConfiguration)configuration).getProperties();
-        File rootDir = configuration.getRootProjectDirectory();
+        File rootDir = getCanonicalFile(configuration.getRootProjectDirectory());
         Optional<IProject> rootProject = CorePlugin.workspaceOperations().findProjectByLocation(rootDir);
         if (rootProject.isPresent() && rootProject.get().isAccessible()) {
-            this.buildConfigurationPersistence.saveBuildConfiguration(rootProject.get(), properties);
+            this.buildConfigurationPersistence.saveBuildConfiguration(rootProject.get(), configuration);
         } else {
-            this.buildConfigurationPersistence.saveBuildConfiguration(rootDir, properties);
+            this.buildConfigurationPersistence.saveBuildConfiguration(rootDir, configuration);
+        }
+    }
+
+    private static File getCanonicalFile(File file) {
+        try {
+            return file.getCanonicalFile();
+        } catch (IOException e) {
+            return file.getAbsoluteFile();
         }
     }
 
@@ -131,8 +120,8 @@ public class DefaultConfigurationManager implements ConfigurationManager {
         BuildConfiguration buildConfiguration = projectConfiguration.getBuildConfiguration();
         saveBuildConfiguration(buildConfiguration);
 
-        File projectDir = projectConfiguration.getProjectDir();
-        File rootDir = buildConfiguration.getRootProjectDirectory();
+        File projectDir = getCanonicalFile(projectConfiguration.getProjectDir());
+        File rootDir = wgetCanonicalFile(buildConfiguration.getRootProjectDirectory());
         String pathToRoot = projectRootToRelativePath(projectDir, rootDir);
 
         Optional<IProject> project = CorePlugin.workspaceOperations().findProjectByLocation(projectDir);
@@ -160,7 +149,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
             projectConfiguration = loadProjectConfiguration(attributes.getWorkingDir());
         } catch (Exception e) {
             CorePlugin.logger().debug("Can't load build config from " + attributes.getWorkingDir(), e);
-            org.eclipse.buildship.core.configuration.BuildConfiguration configuration = org.eclipse.buildship.core.configuration.BuildConfiguration
+            BuildConfiguration configuration = BuildConfiguration
                     .forRootProjectDirectory(attributes.getWorkingDir())
                     .gradleDistribution(attributes.getGradleDistribution())
                     .gradleUserHome(attributes.getGradleUserHome())
@@ -168,8 +157,8 @@ public class DefaultConfigurationManager implements ConfigurationManager {
                     .buildScansEnabled(attributes.isBuildScansEnabled())
                     .offlineMode(attributes.isOffline())
                     .build();
-            BuildConfiguration buildConfiguration = new DefaultBuildConfiguration(configuration, loadWorkspaceConfiguration());
-            projectConfiguration = new DefaultProjectConfiguration(canonicalize(attributes.getWorkingDir()), buildConfiguration);
+            // TODO (donat) we should use the facade here or inside DefaultRunConfiguration
+            projectConfiguration = new DefaultProjectConfiguration(canonicalize(attributes.getWorkingDir()), configuration);
         }
         RunConfigurationProperties runConfigProperties = new RunConfigurationProperties(attributes.getTasks(),
                   attributes.getGradleDistribution(),
@@ -204,7 +193,6 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     @Override
     public RunConfiguration createRunConfiguration(BuildConfiguration buildConfiguration, List<String> tasks, File javaHome, List<String> jvmArguments, List<String> arguments, boolean showConsoleView,
             boolean showExecutionsView, boolean overrideBuildSettings, GradleDistribution gradleDistribution, File gradleUserHome, boolean buildScansEnabled, boolean offlineMode) {
-        Preconditions.checkArgument(buildConfiguration instanceof DefaultBuildConfiguration, "Unknow configuration type: ", buildConfiguration.getClass());
         ProjectConfiguration projectConfiguration = new DefaultProjectConfiguration(buildConfiguration.getRootProjectDirectory(), buildConfiguration);
         RunConfigurationProperties runConfig = new RunConfigurationProperties(tasks,
                 gradleDistribution,
@@ -235,8 +223,8 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     }
 
     private static String projectRootToRelativePath(File projectDir, File rootDir) {
-        IPath rootProjectPath = new Path(rootDir.getPath());
-        IPath projectPath = new Path(projectDir.getPath());
+        IPath rootProjectPath = new Path(rootDir.getAbsoluteFile().getPath());
+        IPath projectPath = new Path(projectDir.getAbsoluteFile().getPath());
         return RelativePathUtils.getRelativePath(projectPath, rootProjectPath).toPortableString();
     }
 }

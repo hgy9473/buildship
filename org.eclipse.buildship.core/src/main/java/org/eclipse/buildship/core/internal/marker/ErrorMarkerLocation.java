@@ -129,7 +129,7 @@ final class ErrorMarkerLocation {
                 if (projectConfiguration == null) {
                     return false;
                 }
-                return projectConfiguration.getBuildConfiguration().equals(gradleBuild.getBuildConfig());
+                return projectConfiguration.getBuildConfiguration().equals(gradleBuild.getBuildConfig().getBuildConfiguration());
             }
         }).toList();
     }

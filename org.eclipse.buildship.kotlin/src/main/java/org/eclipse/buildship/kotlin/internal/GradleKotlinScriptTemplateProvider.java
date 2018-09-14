@@ -30,8 +30,9 @@ import org.eclipse.buildship.core.FixedVersionGradleDistribution;
 import org.eclipse.buildship.core.GradleDistribution;
 import org.eclipse.buildship.core.LocalGradleDistribution;
 import org.eclipse.buildship.core.RemoteGradleDistribution;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
 
 /**
@@ -115,14 +116,15 @@ public final class GradleKotlinScriptTemplateProvider implements ScriptTemplateP
     public Map<String, Object> getEnvironment(IFile file) {
         HashMap<String, Object> environment = new HashMap<>();
         BuildConfiguration buildConfig = CorePlugin.configurationManager().loadProjectConfiguration(file.getProject()).getBuildConfiguration();
+        BuildConfigurationFacade buildConfiguration = BuildConfigurationFacade.from(buildConfig);
 
-        environment.put(GSK_PROJECT_ROOT, buildConfig.getRootProjectDirectory());
-        environment.put(GSK_GRADLE_USER_HOME, buildConfig.getWorkspaceConfiguration().getGradleUserHome());
+        environment.put(GSK_PROJECT_ROOT, buildConfiguration.getRootProjectDirectory());
+        environment.put(GSK_GRADLE_USER_HOME, buildConfiguration.getWorkspaceConfiguration().getGradleUserHome());
         environment.put(GSK_JAVA_HOME, null);
         environment.put(GSK_OPTIONS, Collections.<String>emptyList());
         environment.put(GSK_JVM_OPTIONS, Collections.<String>emptyList());
 
-        GradleDistribution gradleDistribution = buildConfig.getGradleDistribution();
+        GradleDistribution gradleDistribution = buildConfiguration.getGradleDistribution();
         if (gradleDistribution instanceof LocalGradleDistribution) {
             environment.put(GSK_INSTALLATION_LOCAL, ((LocalGradleDistribution)gradleDistribution).getLocation());
         } else if (gradleDistribution instanceof RemoteGradleDistribution) {

@@ -4,7 +4,7 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.jdt.core.JavaCore
 
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.configuration.WorkspaceConfiguration
 import org.eclipse.buildship.core.internal.test.fixtures.ProjectSynchronizationSpecification
 
@@ -205,25 +205,23 @@ class SynchronizingBuildScriptUpdateListenerTest extends ProjectSynchronizationS
 
     private void setProjectAutoSync(IProject project, boolean autoSync) {
         BuildConfiguration currentConfig = configurationManager.loadProjectConfiguration(project).buildConfiguration
-        BuildConfiguration updatedConfig = configurationManager.createBuildConfiguration(currentConfig.getRootProjectDirectory(),
-            true,
-            currentConfig.gradleDistribution,
-            currentConfig.gradleUserHome,
-            currentConfig.buildScansEnabled,
-            currentConfig.offlineMode,
-            autoSync)
+        BuildConfiguration updatedConfig = BuildConfiguration
+                .forRootProjectDirectory(currentConfig.getRootProjectDirectory())
+                .overrideWorkspaceConfiguration(true)
+                .gradleDistribution(currentConfig.gradleDistribution)
+                .gradleUserHome(currentConfig.gradleUserHome.orElse(null))
+                .buildScansEnabled(currentConfig.buildScansEnabled)
+                .offlineMode(currentConfig.offlineMode)
+                .autoSync(autoSync)
+                .build()
         configurationManager.saveBuildConfiguration(updatedConfig)
     }
 
     private void inheritWorkspacePreferences(IProject project) {
         BuildConfiguration currentConfig = configurationManager.loadProjectConfiguration(project).buildConfiguration
-        BuildConfiguration updatedConfig = configurationManager.createBuildConfiguration(currentConfig.getRootProjectDirectory(),
-            false,
-            currentConfig.gradleDistribution,
-            currentConfig.gradleUserHome,
-            currentConfig.buildScansEnabled,
-            currentConfig.offlineMode,
-            true)
+        BuildConfiguration updatedConfig = BuildConfiguration
+                .forRootProjectDirectory(currentConfig.getRootProjectDirectory())
+                .build()
         configurationManager.saveBuildConfiguration(updatedConfig)
     }
 }

@@ -10,6 +10,8 @@ package org.eclipse.buildship.core.internal.configuration;
 
 import java.io.File;
 
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
+
 /**
  * Configuration for a project in a Gradle build.
  *

@@ -19,7 +19,7 @@ import com.google.common.collect.ImmutableSet.Builder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 
 /**
  * Default implementation of {@link GradleBuilds}.

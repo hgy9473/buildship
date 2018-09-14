@@ -109,7 +109,7 @@ class RunGradleTestLaunchRequestJobComplexTest extends ProjectSynchronizationSpe
             runConfig.arguments,
             runConfig.showExecutionView,
             runConfig.showConsoleView,
-            runConfig.projectConfiguration.buildConfiguration.overrideWorkspaceSettings,
+            runConfig.projectConfiguration.buildConfiguration.overrideWorkspaceConfiguration,
             runConfig.projectConfiguration.buildConfiguration.offlineMode,
             runConfig.projectConfiguration.buildConfiguration.buildScansEnabled)
         ILaunch launch = Mock()

@@ -6,7 +6,7 @@ import org.gradle.tooling.model.eclipse.EclipseProject
 import com.google.common.base.Optional
 
 import org.eclipse.buildship.core.internal.CorePlugin
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.util.gradle.Path
 import org.eclipse.buildship.ui.internal.test.fixtures.WorkspaceSpecification
 

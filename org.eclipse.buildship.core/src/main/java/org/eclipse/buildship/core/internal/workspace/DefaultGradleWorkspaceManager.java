@@ -21,7 +21,7 @@ import com.google.common.collect.FluentIterable;
 import org.eclipse.core.resources.IProject;
 
 import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
 import org.eclipse.buildship.core.internal.configuration.ProjectConfiguration;
 

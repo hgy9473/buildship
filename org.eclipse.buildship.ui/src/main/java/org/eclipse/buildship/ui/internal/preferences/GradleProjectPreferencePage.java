@@ -19,8 +19,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.dialogs.PropertyPage;
 
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.configuration.ConfigurationManager;
 import org.eclipse.buildship.core.internal.i18n.CoreMessages;
 import org.eclipse.buildship.core.internal.util.binding.Validator;
@@ -64,9 +64,9 @@ public final class GradleProjectPreferencePage extends PropertyPage {
     private void initValues() {
         IProject project = getTargetProject();
         BuildConfiguration buildConfig = CorePlugin.configurationManager().loadProjectConfiguration(project).getBuildConfiguration();
-        boolean overrideWorkspaceSettings = buildConfig.isOverrideWorkspaceSettings();
+        boolean overrideWorkspaceSettings = buildConfig.isOverrideWorkspaceConfiguration();
         this.gradleProjectSettingsComposite.getGradleDistributionGroup().setDistribution(GradleDistributionViewModel.from(buildConfig.getGradleDistribution()));
-        this.gradleProjectSettingsComposite.getGradleUserHomeGroup().setGradleUserHome(buildConfig.getGradleUserHome());
+        this.gradleProjectSettingsComposite.getGradleUserHomeGroup().setGradleUserHome(buildConfig.getGradleUserHome().orElse(null));
         this.gradleProjectSettingsComposite.getOverrideBuildSettingsCheckbox().setSelection(overrideWorkspaceSettings);
         this.gradleProjectSettingsComposite.getBuildScansCheckbox().setSelection(buildConfig.isBuildScansEnabled());
         this.gradleProjectSettingsComposite.getOfflineModeCheckbox().setSelection(buildConfig.isOfflineMode());
@@ -86,13 +86,15 @@ public final class GradleProjectPreferencePage extends PropertyPage {
        IProject project = getTargetProject();
        ConfigurationManager manager = CorePlugin.configurationManager();
        BuildConfiguration currentConfig = manager.loadProjectConfiguration(project).getBuildConfiguration();
-       BuildConfiguration updatedConfig = manager.createBuildConfiguration(currentConfig.getRootProjectDirectory(),
-           this.gradleProjectSettingsComposite.getOverrideBuildSettingsCheckbox().getSelection(),
-           this.gradleProjectSettingsComposite.getGradleDistributionGroup().getDistribution().toGradleDistribution(),
-           this.gradleProjectSettingsComposite.getGradleUserHomeGroup().getGradleUserHome(),
-           this.gradleProjectSettingsComposite.getBuildScansCheckbox().getSelection(),
-           this.gradleProjectSettingsComposite.getOfflineModeCheckbox().getSelection(),
-           this.gradleProjectSettingsComposite.getAutoSyncCheckbox().getSelection());
+       BuildConfiguration updatedConfig = BuildConfiguration
+               .forRootProjectDirectory(currentConfig.getRootProjectDirectory())
+               .overrideWorkspaceConfiguration(this.gradleProjectSettingsComposite.getOverrideBuildSettingsCheckbox().getSelection())
+               .gradleDistribution(this.gradleProjectSettingsComposite.getGradleDistributionGroup().getDistribution().toGradleDistribution())
+               .gradleUserHome(this.gradleProjectSettingsComposite.getGradleUserHomeGroup().getGradleUserHome())
+               .buildScansEnabled(this.gradleProjectSettingsComposite.getBuildScansCheckbox().getSelection())
+               .offlineMode(this.gradleProjectSettingsComposite.getOfflineModeCheckbox().getSelection())
+               .autoSync(this.gradleProjectSettingsComposite.getAutoSyncCheckbox().getSelection())
+               .build();
        manager.saveBuildConfiguration(updatedConfig);
        return true;
     }

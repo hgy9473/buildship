@@ -35,7 +35,7 @@ import org.eclipse.ui.PlatformUI;
 
 import org.eclipse.buildship.core.GradleDistribution;
 import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.operation.BaseToolingApiOperation;
 import org.eclipse.buildship.core.internal.operation.ToolingApiOperation;
 import org.eclipse.buildship.core.internal.operation.ToolingApiOperations;

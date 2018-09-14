@@ -37,7 +37,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 
 import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.configuration.ConfigurationManager;
 import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
 import org.eclipse.buildship.core.internal.configuration.ProjectConfiguration;
@@ -48,10 +49,10 @@ import org.eclipse.buildship.core.internal.configuration.ProjectConfiguration;
 final class SynchronizeGradleBuildOperation implements IWorkspaceRunnable {
 
     private final Set<EclipseProject> allProjects;
-    private final BuildConfiguration buildConfig;
+    private final BuildConfigurationFacade buildConfig;
     private final NewProjectHandler newProjectHandler;
 
-    SynchronizeGradleBuildOperation(Set<EclipseProject> allProjects, BuildConfiguration buildConfig, NewProjectHandler newProjectHandler) {
+    SynchronizeGradleBuildOperation(Set<EclipseProject> allProjects, BuildConfigurationFacade buildConfig, NewProjectHandler newProjectHandler) {
         this.allProjects = allProjects;
         this.buildConfig = buildConfig;
         this.newProjectHandler = newProjectHandler;
@@ -151,7 +152,7 @@ final class SynchronizeGradleBuildOperation implements IWorkspaceRunnable {
         // save the project configuration; has to be called after workspace project is in sync with the file system
         // otherwise the Eclipse preferences API will throw BackingStoreException
         ConfigurationManager configManager = CorePlugin.configurationManager();
-        ProjectConfiguration projectConfig = configManager.createProjectConfiguration(this.buildConfig, project.getProjectDirectory());
+        ProjectConfiguration projectConfig = configManager.createProjectConfiguration(this.buildConfig.getBuildConfiguration(), project.getProjectDirectory());
         configManager.saveProjectConfiguration(projectConfig);
 
         workspaceProject = ProjectNameUpdater.updateProjectName(workspaceProject, project, this.allProjects, progress.newChild(1));

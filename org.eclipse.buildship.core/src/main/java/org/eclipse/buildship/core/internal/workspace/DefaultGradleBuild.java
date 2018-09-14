@@ -19,7 +19,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.configuration.RunConfiguration;
 import org.eclipse.buildship.core.internal.gradle.GradleProgressAttributes;
 import org.eclipse.buildship.core.internal.marker.GradleMarkerManager;
@@ -31,12 +32,11 @@ import org.eclipse.buildship.core.internal.operation.ToolingApiStatus;
  * @author Stefan Oehme
  */
 public class DefaultGradleBuild implements GradleBuild {
-
-    private final BuildConfiguration buildConfig;
+    private final BuildConfigurationFacade buildConfig;
     private final DefaultModelProvider modelProvider;
 
     public DefaultGradleBuild(BuildConfiguration buildConfig) {
-        this.buildConfig = Preconditions.checkNotNull(buildConfig);
+        this.buildConfig = BuildConfigurationFacade.from(Preconditions.checkNotNull(buildConfig)); // TODO (will be resolved after we merge)
         this.modelProvider = new DefaultModelProvider(this.buildConfig);
     }
 
@@ -61,7 +61,7 @@ public class DefaultGradleBuild implements GradleBuild {
     }
 
     @Override
-    public BuildConfiguration getBuildConfig() {
+    public BuildConfigurationFacade getBuildConfig() {
         return this.buildConfig;
     }
 

@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.debug.core.ILaunchConfiguration;
 
 import org.eclipse.buildship.core.GradleDistribution;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 
 /**
  * Defines how to access a hierarchy of preferences for the Gradle projects in the workspace.
@@ -26,10 +27,6 @@ public interface ConfigurationManager {
     WorkspaceConfiguration loadWorkspaceConfiguration();
 
     void saveWorkspaceConfiguration(WorkspaceConfiguration configuration);
-
-    BuildConfiguration createBuildConfiguration(File rootProjectDirectory, boolean overrideWorkspaceSettings,
-                                                GradleDistribution gradleDistribution, File gradleUserHome,
-                                                boolean buildScansEnabled, boolean offlineMode, boolean autoSync);
 
     BuildConfiguration loadBuildConfiguration(File rootProject);
 

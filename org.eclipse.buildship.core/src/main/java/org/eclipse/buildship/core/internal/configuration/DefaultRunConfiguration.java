@@ -20,7 +20,7 @@ import org.eclipse.buildship.core.GradleDistribution;
  */
 class DefaultRunConfiguration implements RunConfiguration {
 
-    private final ProjectConfiguration projectConfiguration;
+    private final ProjectConfiguration projectConfiguration; // TODO (donat) we should use BuildConfigurationFacade here
     private final RunConfigurationProperties properties;
 
     public DefaultRunConfiguration(ProjectConfiguration projectConfiguration, RunConfigurationProperties properties) {
@@ -52,7 +52,7 @@ class DefaultRunConfiguration implements RunConfiguration {
         if (this.properties.isOverrideBuildSettings()) {
             return this.properties.getGradleUserHome();
         } else {
-            return this.projectConfiguration.getBuildConfiguration().getGradleUserHome();
+            return this.projectConfiguration.getBuildConfiguration().getGradleUserHome().orElse(null);
         }
     }
 

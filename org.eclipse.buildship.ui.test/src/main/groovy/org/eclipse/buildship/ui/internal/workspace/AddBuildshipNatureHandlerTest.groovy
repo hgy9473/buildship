@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.jface.viewers.StructuredSelection
 
 import org.eclipse.buildship.core.internal.CorePlugin
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.configuration.WorkspaceConfiguration
 import org.eclipse.buildship.core.internal.event.Event
 import org.eclipse.buildship.core.internal.event.EventListener

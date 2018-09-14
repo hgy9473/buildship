@@ -27,7 +27,7 @@ import com.google.common.util.concurrent.UncheckedExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.gradle.GradleProgressAttributes;
 import org.eclipse.buildship.core.internal.util.gradle.GradleVersion;
 import org.eclipse.buildship.core.internal.util.gradle.ModelUtils;
@@ -39,10 +39,10 @@ import org.eclipse.buildship.core.internal.util.gradle.ModelUtils;
  */
 final class DefaultModelProvider implements ModelProvider {
 
-    private final BuildConfiguration buildConfiguration;
+    private final BuildConfigurationFacade buildConfiguration;
     private final Cache<Object, Object> cache = CacheBuilder.newBuilder().build();
 
-    public DefaultModelProvider(BuildConfiguration buildConfiguration) {
+    public DefaultModelProvider(BuildConfigurationFacade buildConfiguration) {
         this.buildConfiguration = buildConfiguration;
     }
 

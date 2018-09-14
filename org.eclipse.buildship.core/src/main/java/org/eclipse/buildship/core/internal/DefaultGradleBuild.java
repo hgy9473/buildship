@@ -32,15 +32,7 @@ public final class DefaultGradleBuild implements GradleBuild {
     }
 
     public DefaultGradleBuild(BuildConfiguration configuration) {
-        org.eclipse.buildship.core.internal.configuration.BuildConfiguration buildConfiguration = CorePlugin.configurationManager().createBuildConfiguration(
-            configuration.getRootProjectDirectory(),
-            configuration.isOverrideWorkspaceConfiguration(),
-            configuration.getGradleDistribution(),
-            configuration.getGradleUserHome().orElse(null),
-            configuration.isBuildScansEnabled(),
-            configuration.isOfflineMode(),
-            configuration.isAutoSync());
-        this.gradleBuild = CorePlugin.gradleWorkspaceManager().getGradleBuild(buildConfiguration);
+        this.gradleBuild = CorePlugin.gradleWorkspaceManager().getGradleBuild(configuration);
     }
 
     @Override

@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.util.gradle.HierarchicalElementUtils;
 
 /**
@@ -39,7 +39,7 @@ final class SynchronizeGradleBuildsOperation {
 
     protected void run(CancellationTokenSource tokenSource, IProgressMonitor monitor) throws CoreException {
         SubMonitor progress = SubMonitor.convert(monitor, 5);
-        BuildConfiguration buildConfig = this.build.getBuildConfig();
+        BuildConfigurationFacade buildConfig = this.build.getBuildConfig();
         progress.setTaskName((String.format("Synchronizing Gradle build at %s with workspace", buildConfig.getRootProjectDirectory())));
         new ImportRootProjectOperation(buildConfig, this.newProjectHandler).run(progress.newChild(1));
         Set<EclipseProject> allProjects = fetchEclipseProjects(this.build, tokenSource, progress.newChild(1));

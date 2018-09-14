@@ -7,7 +7,8 @@ import org.gradle.tooling.model.build.GradleEnvironment
 import org.eclipse.core.resources.IProject
 
 import org.eclipse.buildship.core.internal.CorePlugin
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade
+import org.eclipse.buildship.core.configuration.BuildConfiguration
 import org.eclipse.buildship.core.internal.test.fixtures.ProjectSynchronizationSpecification
 import org.eclipse.buildship.core.internal.util.extension.InvocationCustomizerCollector
 
@@ -48,7 +49,7 @@ class InvocationCustomizerTest extends ProjectSynchronizationSpecification {
 
         when:
         BuildConfiguration buildConfiguration = createInheritingBuildConfiguration(projectDir)
-        buildConfiguration.toGradleArguments().applyTo(operation, buildEnvironment)
+        BuildConfigurationFacade.from(buildConfiguration).toGradleArguments().applyTo(operation, buildEnvironment)
 
         then:
         1 * operation.withArguments(EXTRA_ARGUMENTS)

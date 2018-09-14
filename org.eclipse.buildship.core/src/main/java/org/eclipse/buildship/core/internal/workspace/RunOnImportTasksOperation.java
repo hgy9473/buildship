@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.configuration.RunConfiguration;
 import org.eclipse.buildship.core.internal.gradle.GradleProgressAttributes;
 import org.eclipse.buildship.core.internal.util.gradle.CompatEclipseProject;
@@ -46,10 +46,10 @@ final class RunOnImportTasksOperation {
     private static final String CLEAN_WTP_TASK = "cleanEclipseWtp";
     private static final String WTP_COMPONENT_NATURE = "org.eclipse.wst.common.modulecore.ModuleCoreNature";
 
-    private final BuildConfiguration buildConfig;
+    private final BuildConfigurationFacade buildConfig;
     private final Set<EclipseProject> allprojects;
 
-    public RunOnImportTasksOperation(Set<? extends EclipseProject> allProjects, BuildConfiguration buildConfig) {
+    public RunOnImportTasksOperation(Set<? extends EclipseProject> allProjects, BuildConfigurationFacade buildConfig) {
         this.allprojects = ImmutableSet.copyOf(allProjects);
         this.buildConfig = Preconditions.checkNotNull(buildConfig);
     }
@@ -103,12 +103,12 @@ final class RunOnImportTasksOperation {
     }
 
     private void runTasks(final List<String> tasksToRun, IProgressMonitor monitor, CancellationTokenSource tokenSource) {
-        RunConfiguration runConfiguration = CorePlugin.configurationManager().createDefaultRunConfiguration(this.buildConfig);
+        RunConfiguration runConfiguration = CorePlugin.configurationManager().createDefaultRunConfiguration(this.buildConfig.getBuildConfiguration());
         GradleProgressAttributes progressAttributes = GradleProgressAttributes.builder(tokenSource, monitor)
                 .forBackgroundProcess()
                 .withFilteredProgress()
                 .build();
-        BuildLauncher launcher = CorePlugin.gradleWorkspaceManager().getGradleBuild(this.buildConfig).newBuildLauncher(runConfiguration, progressAttributes);
+        BuildLauncher launcher = CorePlugin.gradleWorkspaceManager().getGradleBuild(this.buildConfig.asBuildConfiguration()).newBuildLauncher(runConfiguration, progressAttributes);
         launcher.forTasks(tasksToRun.toArray(new String[tasksToRun.size()])).run();
     }
 }

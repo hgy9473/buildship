@@ -21,9 +21,10 @@ import com.google.common.collect.ImmutableList;
 
 import org.eclipse.core.resources.IProject;
 
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.GradlePluginsRuntimeException;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes;
 import org.eclipse.buildship.core.internal.util.gradle.HierarchicalElementUtils;
 import org.eclipse.buildship.core.internal.util.variable.ExpressionUtils;
@@ -107,18 +108,19 @@ public final class TaskNodeSelectionUtils {
 
     private static GradleRunConfigurationAttributes createARunConfigAttributes(File rootDir, File workingDir, List<String> tasks) {
         BuildConfiguration buildConfig = CorePlugin.configurationManager().loadBuildConfiguration(rootDir);
+        BuildConfigurationFacade buildConfiguration = BuildConfigurationFacade.from(buildConfig);
         return new GradleRunConfigurationAttributes(tasks,
                                                     projectDirectoryExpression(workingDir),
-                                                    buildConfig.getGradleDistribution().toString(),
-                                                    gradleUserHomeExpression(buildConfig.getGradleUserHome()),
+                                                    buildConfiguration.getGradleDistribution().toString(),
+                                                    gradleUserHomeExpression(buildConfiguration.getGradleUserHome()),
                                                     null,
                                                     Collections.<String>emptyList(),
                                                     Collections.<String>emptyList(),
                                                     true,
                                                     true,
-                                                    buildConfig.isOverrideWorkspaceSettings(),
-                                                    buildConfig.isOfflineMode(),
-                                                    buildConfig.isBuildScansEnabled());
+                                                    buildConfiguration.isOverrideWorkspaceConfiguration(),
+                                                    buildConfiguration.isOfflineMode(),
+                                                    buildConfiguration.isBuildScansEnabled());
     }
 
     private static String projectDirectoryExpression(File rootProjectDir) {

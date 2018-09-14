@@ -14,8 +14,7 @@ package org.eclipse.buildship.ui.internal.wizard.project;
 import java.io.File;
 import java.util.List;
 
-import org.eclipse.buildship.core.internal.CorePlugin;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.util.binding.Property;
 import org.eclipse.buildship.core.internal.util.binding.Validator;
 import org.eclipse.buildship.core.internal.util.binding.Validators;
@@ -127,12 +126,14 @@ public final class ProjectImportConfiguration {
     }
 
     public BuildConfiguration toBuildConfig() {
-        return CorePlugin.configurationManager().createBuildConfiguration(getProjectDir().getValue(),
-                getOverwriteWorkspaceSettings().getValue(),
-                getDistribution().getValue().toGradleDistribution(),
-                getGradleUserHome().getValue(),
-                getBuildScansEnabled().getValue(),
-                getOfflineMode().getValue(),
-                getAutoSync().getValue());
+        return BuildConfiguration
+                .forRootProjectDirectory(getProjectDir().getValue())
+                .overrideWorkspaceConfiguration(getOverwriteWorkspaceSettings().getValue())
+                .gradleDistribution(getDistribution().getValue().toGradleDistribution())
+                .gradleUserHome(getGradleUserHome().getValue())
+                .buildScansEnabled(getBuildScansEnabled().getValue())
+                .offlineMode(getOfflineMode().getValue())
+                .autoSync(getAutoSync().getValue())
+                .build();
     }
 }

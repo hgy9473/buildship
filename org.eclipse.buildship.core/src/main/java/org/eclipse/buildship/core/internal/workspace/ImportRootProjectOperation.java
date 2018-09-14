@@ -22,10 +22,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 
+import org.eclipse.buildship.core.configuration.BuildConfiguration;
 import org.eclipse.buildship.core.internal.CorePlugin;
 import org.eclipse.buildship.core.internal.ImportRootProjectException;
 import org.eclipse.buildship.core.internal.UnsupportedConfigurationException;
-import org.eclipse.buildship.core.internal.configuration.BuildConfiguration;
+import org.eclipse.buildship.core.internal.configuration.BuildConfigurationFacade;
 import org.eclipse.buildship.core.internal.configuration.GradleProjectNature;
 import org.eclipse.buildship.core.internal.configuration.ProjectConfiguration;
 
@@ -36,10 +37,10 @@ import org.eclipse.buildship.core.internal.configuration.ProjectConfiguration;
  */
 public final class ImportRootProjectOperation {
 
-    private final BuildConfiguration buildConfiguration;
+    private final BuildConfigurationFacade buildConfiguration;
     private final NewProjectHandler newProjectHandler;
 
-    public ImportRootProjectOperation(BuildConfiguration buildConfiguration, NewProjectHandler newProjectHandler) {
+    public ImportRootProjectOperation(BuildConfigurationFacade buildConfiguration, NewProjectHandler newProjectHandler) {
         this.buildConfiguration = Preconditions.checkNotNull(buildConfiguration);
         this.newProjectHandler = Preconditions.checkNotNull(newProjectHandler);
     }
@@ -63,7 +64,7 @@ public final class ImportRootProjectOperation {
 
                 File rootDir = ImportRootProjectOperation.this.buildConfiguration.getRootProjectDirectory();
                 verifyNoWorkspaceRootIsImported(rootDir, progress.newChild(1));
-                saveProjectConfiguration(ImportRootProjectOperation.this.buildConfiguration, rootDir, progress.newChild(1));
+                saveProjectConfiguration(ImportRootProjectOperation.this.buildConfiguration.getBuildConfiguration(), rootDir, progress.newChild(1));
                 importRootProject(rootDir, progress.newChild(1));
             }
         }, monitor);
