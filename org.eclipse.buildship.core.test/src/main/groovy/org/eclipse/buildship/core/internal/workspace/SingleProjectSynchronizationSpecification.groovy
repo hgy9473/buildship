@@ -1,6 +1,7 @@
 package org.eclipse.buildship.core.internal.workspace
 
 import org.gradle.api.JavaVersion
+import spock.lang.IgnoreIf
 import spock.lang.Unroll
 
 import org.eclipse.core.runtime.IPath
@@ -193,6 +194,7 @@ abstract class SingleProjectSynchronizationSpecification extends ProjectSynchron
         distribution << getSupportedGradleDistributions('>=2.11')
     }
 
+    @IgnoreIf({ JavaVersion.current().isJava9Compatible() })
     def "Target compatibility reuses source compatibility for Gradle 2.10"() {
         setup:
         prepareJavaProject('sample-project')
