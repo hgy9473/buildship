@@ -8,12 +8,12 @@
 
 package org.eclipse.buildship.core.internal;
 
-import java.util.Collections;
 import java.util.function.Function;
 
 import org.gradle.tooling.CancellationTokenSource;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
+import org.gradle.tooling.model.GradleProject;
 
 import com.google.common.base.Preconditions;
 
@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 
 import org.eclipse.buildship.core.BuildConfiguration;
 import org.eclipse.buildship.core.GradleBuild;
+import org.eclipse.buildship.core.GradleCore;
 import org.eclipse.buildship.core.SynchronizationResult;
 import org.eclipse.buildship.core.internal.configuration.GradleArguments;
 import org.eclipse.buildship.core.internal.operation.BaseToolingApiOperation;
@@ -81,6 +82,14 @@ public final class DefaultGradleBuild implements GradleBuild {
 
     @Override
     public <T> T withConnection(Function<ProjectConnection, ? extends T> action, IProgressMonitor monitor) throws Exception {
+
+     IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("project-name");
+     GradleBuild build = GradleCore.getWorkspace().getBuild(project).get();
+
+     GradleProject model = build.withConnection(connection -> connection.getModel(GradleProject.class), monitor);
+     System.out.println( model.getBuildDirectory());
+
+
         Preconditions.checkNotNull(action);
         monitor = monitor != null ? monitor : new NullProgressMonitor();
 
