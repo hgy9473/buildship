@@ -11,10 +11,7 @@ package org.eclipse.buildship.core;
 import java.util.function.Function;
 
 import org.gradle.tooling.ProjectConnection;
-import org.gradle.tooling.model.GradleProject;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
