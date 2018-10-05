@@ -73,7 +73,7 @@ public interface GradleBuild {
      * The following sections show examples how this API can be used.
      *
      * <p>
-     * <i>1. Load a model</i>
+     * <i>1. Load models</i>
      *
      * <p>
      * <pre><code>
@@ -83,15 +83,19 @@ public interface GradleBuild {
      *     GradleProject model = build.withConnection(connection -> connection.getModel(GradleProject.class), monitor);
      *     System.out.println(model.getBuildDirectory());
      * </code></pre>
+     * Clients can load the <a href="https://docs.gradle.org/current/javadoc/org/gradle/tooling/ProjectConnection.html#model-java.lang.Class-"> default models</a>.
+     * Also, custom model loading possible with using {@code --init-script}:
+     * <pre><code>
+     *     connection.model(CustomModel.class).withArguments("--init-script", "/path/to/init-script/with/model").get();
+     * </code></pre>
+     * An example project with custom model loading is available at <a href="https://github.com/donat/buildship-custom-tapi-model">https://github.com/donat/buildship-custom-tapi-model</a>.
      *
      * <p>
      * <i>2. Load the available tasks</i>
      *
      * <p>
      * <pre><code>
-     *     IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("project-name");
-     *     GradleBuild build = GradleCore.getWorkspace().getBuild(project).get();
-     *
+     *     GradleBuild build = ...
      *     List<String> tasks = build.withConnection(connection -> {
      *         GradleProject model = connection.getModel(GradleProject.class);
      *         return model.getTasks().stream().map(Task::getPath).collect(Collectors.toList());
@@ -105,9 +109,7 @@ public interface GradleBuild {
      *
      * <p>
      * <pre><code>
-     *     IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("project-name");
-     *     GradleBuild build = GradleCore.getWorkspace().getBuild(project).get();
-     *
+     *     GradleBuild build = ...
      *     build.withConnection(connection -> { connection.newBuild().forTasks("build").run(); return null; }, monitor);
      * </code></pre>
      *
@@ -116,23 +118,11 @@ public interface GradleBuild {
      *
      * <p>
      * <pre><code>
-     *     IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("project-name");
-     *     GradleBuild build = GradleCore.getWorkspace().getBuild(project).get();
-     *
+     *     GradleBuild build = ...
      *     build.withConnection(connection -> { connection.newTestLauncher().withJvmTestClasses("org.example.MyTest").run(); return null; }, monitor);
      * </code></pre>
      *
      * <p>
-     * <i>5. Load a custom model</i>
-     * TODO (donat) to make this work we need to have the LongRunningOperation.add(|Jvm)Arguments() which is available in Tooling API 5.0
-     *
-     * <p>
-     * <pre><code>
-     *     IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("project-name");
-     *     GradleBuild build = GradleCore.getWorkspace().getBuild(project).get();
-     *
-     *     TODO (donat) document how to load custom models (here or link to external documentation)
-     * </code></pre>
      *
      * <p>
      * This method does not do exception handling. All exceptions are propagated directly to the client.
